@@ -6,7 +6,7 @@ import CreateAccount 					from '../modals/CreateAccount';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import * as mutations 					from '../../cache/mutations';
 import SidebarContents 					from '../sidebar/SidebarContents';
-import { GET_DB_TODOS } 				from '../../cache/queries';
+import { GET_DB_REGIONS } 				from '../../cache/queries';
 import React, { useState } 				from 'react';
 import { useMutation, useQuery } 		from '@apollo/client';
 import { WNavbar, WSidebar, WNavItem } 	from 'wt-frontend';
@@ -44,7 +44,7 @@ const Homescreen = (props) => {
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
-	const { loading, error, data, refetch } = useQuery(GET_DB_TODOS);
+	const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
 
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
@@ -87,7 +87,7 @@ const Homescreen = (props) => {
 	}
 
 	const mutationOptions = {
-		refetchQueries: [{ query: GET_DB_TODOS }], 
+		refetchQueries: [{ query: GET_DB_REGIONS }], 
 		awaitRefetchQueries: true,
 		onCompleted: () => reloadList()
 	}
@@ -181,14 +181,14 @@ const Homescreen = (props) => {
 			sortRule: 'task',
 			sortDirection: 1
 		}
-		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_TODOS }] });
+		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_REGIONS }] });
 		if(data) {
 			loadTodoList(data.addTodolist);
 		} 
 		
 	};
 	const deleteList = async (_id) => {
-		DeleteTodolist({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_TODOS }] });
+		DeleteTodolist({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_REGIONS }] });
 		loadTodoList({});
 	};
 

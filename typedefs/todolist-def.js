@@ -2,54 +2,54 @@ const { gql } = require('apollo-server');
 
 
 const typeDefs = gql `
-	type Todolist {
+	type RegionsArray {
 		_id: String!
 		name: String!
-		owner: String!
-		items: [Item]
-		sortRule: String!
-		sortDirection: Int!
+		elements: [Element]!
+		subregion: [RegionsArray]
+		
 	}
-	type Item {
-		_id: String!
-		description: String!
-		due_date: String!
-		assigned_to: String!
-		completed:  Boolean!
+	type Element {
+		 _id: String!
+       	 id: Int!
+         capital: String!
+         leader: String!
+         flag: String!
+         landmark:  [LandMark]
+	}
+	type LandMark{
+		Landmark: String!
 	}
 	extend type Query {
-		getAllTodos: [Todolist]
-		getTodoById(_id: String!): Todolist 
+		getAllRegions: [RegionsArray]
+		getRegionsArrayById(_id: String!): RegionsArray 
 	}
 	extend type Mutation {
-		addItem(item: ItemInput!, _id: String!, index: Int!): String
-		addTodolist(todolist: TodoInput!): Todolist
-		deleteItem(itemId: String!, _id: String!): [Item]		
-		deleteTodolist(_id: String!): Boolean
-		updateTodolistField(_id: String!, field: String!, value: String!): String
-		updateItemField(itemId: String!, _id: String!, field: String!, value: String!, flag: Int!): [Item]
-		reorderItems(itemId: String!, _id: String!, direction: Int!): [Item]
-		sortItems(_id: String!, criteria: String!): [Item]
+		  addRegion(regionInput: RegionInput!): String
 	}
-	input FieldInput {
-		_id: String
-		field: String
-		value: String
-	}
-	input TodoInput {
-		_id: String
-		name: String
-		owner: String
-		items: [ItemInput]
-		sortRule: String
-		sortDirection: Int
-	}
-	input ItemInput {
-		_id: String
-		description: String
-		due_date: String
-		assigned_to: String
-		completed:  Boolean
+
+
+	input RegionInput {
+       _id: String
+       id: Int
+       name: String
+       Element: [ElementInput]
+   }
+   input ElementInput {
+       _id: String
+       id: Int
+       capital: String
+       leader: String
+       flag: String
+       lankMart:  []
+	  Subregion: []
+   }
+  input LandMarkInput {
+       _id: String
+ 
+       name: String
+   }
+
 	}
 `;
 

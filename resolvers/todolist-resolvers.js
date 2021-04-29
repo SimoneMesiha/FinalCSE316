@@ -1,5 +1,5 @@
 const ObjectId = require('mongoose').Types.ObjectId;
-const Todolist = require('../models/todolist-model');
+const RegionsArray = require('../models/regionsArray-model');
 const Sorting = require('../utils/sorting')
 
 // The underscore param, "_", is a wildcard that can represent any value;
@@ -12,12 +12,12 @@ module.exports = {
 		 	@param 	 {object} req - the request object containing a user id
 			@returns {array} an array of todolist objects on success, and an empty array on failure
 		**/
-		getAllTodos: async (_, __, { req }) => {
+		getAllRegions: async (_, __, { req }) => {
 			const _id = new ObjectId(req.userId);
 			if(!_id) { return([])};
-			const todolists = await Todolist.find({owner: _id}).sort({updatedAt: 'descending'});
-			if(todolists) {
-				return (todolists);
+			const regions = await RegionsArray.find({owner: _id}).sort({updatedAt: 'descending'});
+			if(regions) {
+				return (regions);
 			} 
 
 		},
@@ -25,10 +25,10 @@ module.exports = {
 		 	@param 	 {object} args - a todolist id
 			@returns {object} a todolist on success and an empty object on failure
 		**/
-		getTodoById: async (_, args) => {
+		getRegionsArrayById: async (_, args) => {
 			const { _id } = args;
 			const objectId = new ObjectId(_id);
-			const todolist = await Todolist.findOne({_id: objectId});
+			const todolist = await RegionsArray.findOne({_id: objectId});
 			if(todolist) return todolist;
 			else return ({});
 		},

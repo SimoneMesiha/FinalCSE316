@@ -51,6 +51,8 @@ const client = new ApolloClient({
 
 ReactDOM.render(
 	<React.StrictMode>
+
+		{/* this thing uses react context api to make an appoloclient instance available to the enitre React tree. All components can now access stuff */}
 		<ApolloProvider client={client}>
 	    	<App />
 		</ApolloProvider>
