@@ -1,31 +1,46 @@
 const { model, Schema, ObjectId } = require('mongoose');
-const Elements = require('./element-model').schema;
 
-const regionsArraySchema = new Schema(
+const regionArraySchema = new Schema(
 	{
 		_id: {
 			type: ObjectId,
-			required: true
-		},
-
-		id: {
-			type: Number,
 			required: true
 		},
 		name: {
 			type: String,
 			required: true
 		},
-		elements:{
-			type : [Elements],
+		subregion:{
+			type:[String],
 			required: true
-		} ,
-		subregion: {
-			$ref : '#' 							//this means recursive I believe
+		},
+		capital:{
+			type: String,
+			required:true
+		},
+		leader:{
+			type:String,
+			required:true
+		},
+		flag:{
+			type:String,
+			required:true
+		},
+		landmark:{
+			type:[String],
+			required:true
+		},
+		isitmap:{
+			type: Boolean,
+			required:true
+		},
+		owner:{
+			type:String
 		}
+
 	},
 	{ timestamps: true }
 );
 
-const RegionsArray = model('RegionsArray', regionsArraySchema);
-module.exports = RegionsArray;
+const RegionArray = model('RegionArray', regionArraySchema);
+module.exports = RegionArray;

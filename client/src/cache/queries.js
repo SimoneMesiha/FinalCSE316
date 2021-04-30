@@ -16,18 +16,13 @@ export const GET_DB_REGIONS = gql`
 		getAllRegions {
 			_id
 			name
-			elements{
-				_id
-				id
-				capital
-				leader
-				flag
-				landmark{
-					Landmark
-				}
-			}
-			subregion{
-				RegionsArray
-			}
+			subregion
+			capital
+            leader
+            flag
+            landmark
+			isitmap
+			owner
+		}
 	}
 `;

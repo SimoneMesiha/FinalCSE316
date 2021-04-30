@@ -44,28 +44,30 @@ const Homescreen = (props) => {
 	const [canUndo, setCanUndo] = useState(props.tps.hasTransactionToUndo());
 	const [canRedo, setCanRedo] = useState(props.tps.hasTransactionToRedo());
 
+
+
 	const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
 
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
-	if(data) { 
+	// if(data) { 
 		// Assign todolists 
-		for(let todo of data.getAllTodos) {
-			todolists.push(todo)
-		}
-		// if a list is selected, shift it to front of todolists
-		if(activeList._id) {
-			let selectedListIndex = todolists.findIndex(entry => entry._id === activeList._id);
-			let removed = todolists.splice(selectedListIndex, 1);
-			todolists.unshift(removed[0]);
-		}
-		// create data for sidebar links
-		for(let todo of todolists) {
-			if(todo) {
-				SidebarData.push({_id: todo._id, name: todo.name});
-			}	
-		}
-	}
+	// 	for(let todo of data.getAllTodos) {
+	// 		todolists.push(todo)
+	// 	}
+	// 	// if a list is selected, shift it to front of todolists
+	// 	if(activeList._id) {
+	// 		let selectedListIndex = todolists.findIndex(entry => entry._id === activeList._id);
+	// 		let removed = todolists.splice(selectedListIndex, 1);
+	// 		todolists.unshift(removed[0]);
+	// 	}
+	// 	// create data for sidebar links
+	// 	for(let todo of todolists) {
+	// 		if(todo) {
+	// 			SidebarData.push({_id: todo._id, name: todo.name});
+	// 		}	
+	// 	}
+	// }
 
 
 	
@@ -98,8 +100,9 @@ const Homescreen = (props) => {
 	const [UpdateTodolistField] 	= useMutation(mutations.UPDATE_TODOLIST_FIELD, mutationOptions);
 	const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM, mutationOptions);
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM, mutationOptions);
-	const [AddTodolist] 			= useMutation(mutations.ADD_TODOLIST);
+	const [CreateMap] 			= useMutation(mutations.CREATE_MAP);
 	const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
+
 
 
 	
@@ -174,17 +177,20 @@ const Homescreen = (props) => {
 
 	const createNewList = async () => {
 		let list = {
-			_id: '',
-			name: 'Untitled',
-			owner: props.user._id,
-			items: [],
-			sortRule: 'task',
-			sortDirection: 1
+			    _id: '',
+				name: 'dkfasf',
+				subregion: [],
+				capital: 'dfas',
+				leader: 'dfa',
+				flag: 'df',
+				landmark: [],
+				isitmap : true,
+				owner : 'a' 
 		}
-		const { data } = await AddTodolist({ variables: { todolist: list }, refetchQueries: [{ query: GET_DB_REGIONS }] });
-		if(data) {
-			loadTodoList(data.addTodolist);
-		} 
+		const { data } = await CreateMap({variables: {regionarray:list}});
+		// if(data) {
+		// 	loadTodoList(data.addTodolist);
+		// } 
 		
 	};
 	const deleteList = async (_id) => {

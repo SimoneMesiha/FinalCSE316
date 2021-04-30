@@ -29,6 +29,28 @@ export const LOGOUT = gql`
 	}
 `;
 
+
+
+export const CREATE_MAP = gql`
+	mutation CreateMap($regionarray : RegionInput){
+		createmap(regionarray: $regionarray){
+			_id
+			name
+			subregion
+			capital
+			leader
+			flag
+			landmark
+			isitmap
+			owner
+		}
+	}
+`;
+
+
+
+
+
 export const ADD_ITEM = gql`
 	mutation AddItem($item: ItemInput!, $_id: String!, $index: Int!) {
 		addItem(item: $item, _id: $_id, index: $index)
@@ -46,6 +68,7 @@ export const DELETE_ITEM = gql`
 		}
 	}
 `;
+
 
 export const UPDATE_ITEM_FIELD = gql`
 	mutation UpdateItemField($_id: String!, $itemId: String!, $field: String!, $value: String!, $flag: Int!) {
