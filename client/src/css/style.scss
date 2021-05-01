@@ -99,10 +99,13 @@ html, body {
 
 .logo {
 	color: $primary-color;
-    font-size: 1.5rem;
-    font-family: "Roboto Mono", monospace;
-    text-transform: uppercase;
+    //font-size: 1.5rem;
+    font-family: 'Consolas', monospace;
+   // text-transform: uppercase;
+
     font-weight: bold;
+    width: 120px;
+    color: orangered;
 } 
 
 .modal-error {

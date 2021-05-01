@@ -185,7 +185,7 @@ const Homescreen = (props) => {
 				flag: 'df',
 				landmark: [],
 				isitmap : true,
-				owner : 'a' 
+				owner : props.user._id
 		}
 		const { data } = await CreateMap({variables: {regionarray:list}});
 		// if(data) {
@@ -243,16 +243,20 @@ const Homescreen = (props) => {
 			<WLHeader>
 				<WNavbar color="colored">
 					<ul>
-						<WNavItem>
+						
 							<Logo className='logo' />
-						</WNavItem>
+						
 					</ul>
 					<ul>
+					
+						
+							{/* WNAVITEM IS ADDED BY ME */}
 						<NavbarOptions
 							fetchUser={props.fetchUser} 	auth={auth} 
 							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
 							reloadTodos={refetch} 			setActiveList={loadTodoList}
 						/>
+						
 					</ul>
 				</WNavbar>
 			</WLHeader>
