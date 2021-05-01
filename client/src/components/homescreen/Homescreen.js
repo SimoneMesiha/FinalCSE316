@@ -245,7 +245,6 @@ const Homescreen = (props) => {
 					<ul>
 						
 							<Logo className='logo' />
-						
 					</ul>
 					<ul>
 					
