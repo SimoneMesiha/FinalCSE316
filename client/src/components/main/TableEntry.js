@@ -124,7 +124,7 @@ const TableEntry = (props) => {
             </WCol>
             <WCol size="3">
                 <div className='button-group'>
-                    <WButton className={canMoveUp ? "table-entry-buttons" : "table-entry-buttons-disabled"} onClick={canMoveUp ? () => props.reorderItem(data._id, -1) : disabledButton } wType="texted">
+                    <WButton className={canMoveUp ? "table-entry-" : "table-entry-buttons-disabled"} onClick={canMoveUp ? () => props.reorderItem(data._id, -1) : disabledButton } wType="texted">
                         <i className="material-icons">expand_less</i>
                     </WButton>
                     <WButton className={canMoveDown ? "table-entry-buttons" : "table-entry-buttons-disabled"} onClick={canMoveDown ? () => props.reorderItem(data._id, 1) : disabledButton } wType="texted">

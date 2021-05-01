@@ -43,7 +43,7 @@ const CreateAccount = (props) => {
 	return (
 		<WModal className="signup-modal"  cover="true" visible={props.setShowCreate}>
 			<WMHeader  className="modal-header" onClose={() => props.setShowCreate(false)}>
-				Sign Up
+				Create New Account
 			</WMHeader>
 
 			{
