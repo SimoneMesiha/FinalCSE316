@@ -2,6 +2,9 @@ import Logo 							from '../navbar/Logo';
 import Login 							from '../modals/Login';
 import Delete 							from '../modals/Delete';
 import MainContents 					from '../main/MainContents';
+
+import RegionContents                   from '../mainRegion/RegionContents'
+
 import CreateAccount 					from '../modals/CreateAccount';
 import NavbarOptions 					from '../navbar/NavbarOptions';
 import * as mutations 					from '../../cache/mutations';
@@ -40,8 +43,10 @@ const Homescreen = (props) => {
 	const auth = props.user === null ? false : true;
 	let todolists 	= [];
 	let SidebarData = []; // the elements
+
+	let maps = [];
 	const [sortRule, setSortRule] = useState('unsorted'); // 1 is ascending, -1 desc
-	const [activeList, setActiveList] 		= useState({});
+	const [activeRegion, setActiveRegion] 		= useState({});
 	const [showDelete, toggleShowDelete] 	= useState(false);
 	const [showLogin, toggleShowLogin] 		= useState(false);
 	const [showCreate, toggleShowCreate] 	= useState(false);
@@ -51,51 +56,53 @@ const Homescreen = (props) => {
 
 
 	const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
+	//console.log("the data ")
 
 	if(loading) { console.log(loading, 'loading'); }
 	if(error) { console.log(error, 'error'); }
-	// if(data) { 
-		// Assign todolists 
-	// 	for(let todo of data.getAllTodos) {
-	// 		todolists.push(todo)
-	// 	}
-	// 	// if a list is selected, shift it to front of todolists
-	// 	if(activeList._id) {
-	// 		let selectedListIndex = todolists.findIndex(entry => entry._id === activeList._id);
-	// 		let removed = todolists.splice(selectedListIndex, 1);
-	// 		todolists.unshift(removed[0]);
-	// 	}
-	// 	// create data for sidebar links
-	// 	for(let todo of todolists) {
-	// 		if(todo) {
-	// 			SidebarData.push({_id: todo._id, name: todo.name});
-	// 		}	
-	// 	}
-	// }
+	if(data) { 
+		//Assign todolists 
+		for(let todo of data.getAllRegions) {
+			maps.push(todo)
+			console.log(maps)
+		}
+		//if a list is selected, shift it to front of todolists
+		// if(activeRegion._id) {
+		// 	let selectedListIndex = maps.findIndex(entry => entry._id === activeRegion._id);
+		// 	let removed = maps.splice(selectedListIndex, 1);
+		// 	maps.unshift(removed[0]);
+		// }
+		// // create data for sidebar links
+		// for(let todo of todolists) {
+		// 	if(todo) {
+		// 		SidebarData.push({_id: todo._id, name: todo.name});
+		// 	}	
+		// }
+	}
 
 
 	
 	// NOTE: might not need to be async
-	const reloadList = async () => {
-		if (activeList._id) {
-			let tempID = activeList._id;
+	const reloadRegion = async () => {
+		if (activeRegion._id) {
+			let tempID = activeRegion._id;
 			let list = todolists.find(list => list._id === tempID);
-			setActiveList(list);
+			setActiveRegion(list);
 		}
 	}
 
-	const loadTodoList = (list) => {
+	const loadRegion = (list) => {
 		props.tps.clearAllTransactions();
 		setCanUndo(props.tps.hasTransactionToUndo());
 		setCanRedo(props.tps.hasTransactionToRedo());
-		setActiveList(list);
+		setActiveRegion(list);
 
 	}
 
 	const mutationOptions = {
 		refetchQueries: [{ query: GET_DB_REGIONS }], 
 		awaitRefetchQueries: true,
-		onCompleted: () => reloadList()
+		onCompleted: () => reloadRegion()
 	}
 
 	const [ReorderTodoItems] 		= useMutation(mutations.REORDER_ITEMS, mutationOptions);
@@ -126,8 +133,33 @@ const Homescreen = (props) => {
 		}
 	}
 
+
+
+
+	const createNewList = async () => {
+		
+		let list = {
+			    _id: '',
+				name: 'dkfasf',
+				subregion: [],
+				capital: 'dfas',
+				leader: 'dfa',
+				flag: 'df',
+				landmark: [],
+				isitmap : true,
+				owner : props.user._id
+		}
+		const { data } = await CreateMap({variables: {regionarray:list} , refetchQueries:{query:GET_DB_REGIONS}} );
+		if(data) {
+			loadRegion(data.CREATE_MAP);
+		} 
+		console.log("we did it bro")
+	};
+
+
+
 	const addItem = async () => {
-		let list = activeList;
+		let list = activeRegion;
 		const items = list.items;
 		const newItem = {
 			_id: '',
@@ -138,14 +170,14 @@ const Homescreen = (props) => {
 		};
 		let opcode = 1;
 		let itemID = newItem._id;
-		let listID = activeList._id;
+		let listID = activeRegion._id;
 		let transaction = new UpdateListItems_Transaction(listID, itemID, newItem, opcode, AddTodoItem, DeleteTodoItem);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
 	};
 
 	const deleteItem = async (item, index) => {
-		let listID = activeList._id;
+		let listID = activeRegion._id;
 		let itemID = item._id;
 		let opcode = 0;
 		let itemToDelete = {
@@ -164,7 +196,7 @@ const Homescreen = (props) => {
 	const editItem = async (itemID, field, value, prev) => {
 		let flag = 0;
 		if (field === 'completed') flag = 1;
-		let listID = activeList._id;
+		let listID = activeRegion._id;
 		let transaction = new EditItem_Transaction(listID, itemID, field, prev, value, flag, UpdateTodoItemField);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
@@ -172,34 +204,17 @@ const Homescreen = (props) => {
 	};
 
 	const reorderItem = async (itemID, dir) => {
-		let listID = activeList._id;
+		let listID = activeRegion._id;
 		let transaction = new ReorderItems_Transaction(listID, itemID, dir, ReorderTodoItems);
 		props.tps.addTransaction(transaction);
 		tpsRedo();
 
 	};
 
-	const createNewList = async () => {
-		let list = {
-			    _id: '',
-				name: 'dkfasf',
-				subregion: [],
-				capital: 'dfas',
-				leader: 'dfa',
-				flag: 'df',
-				landmark: [],
-				isitmap : true,
-				owner : props.user._id
-		}
-		const { data } = await CreateMap({variables: {regionarray:list}});
-		// if(data) {
-		// 	loadTodoList(data.addTodolist);
-		// } 
-		
-	};
+	
 	const deleteList = async (_id) => {
 		DeleteTodolist({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_REGIONS }] });
-		loadTodoList({});
+		loadRegion({});
 	};
 
 	const updateListField = async (_id, field, value, prev) => {
@@ -211,7 +226,7 @@ const Homescreen = (props) => {
 
 	const handleSetActive = (_id) => {
 		const selectedList = todolists.find(todo => todo._id === _id);
-		loadTodoList(selectedList);
+		loadRegion(selectedList);
 	};
 
 	const setShowLogin = () => {
@@ -235,7 +250,7 @@ const Homescreen = (props) => {
 	const sort = (criteria) => {
 		let prevSortRule = sortRule;
 		setSortRule(criteria);
-		let transaction = new SortItems_Transaction(activeList._id, criteria, prevSortRule, sortTodoItems);
+		let transaction = new SortItems_Transaction(activeRegion._id, criteria, prevSortRule, sortTodoItems);
 		console.log(transaction)
 		props.tps.addTransaction(transaction);
 		tpsRedo();
@@ -257,7 +272,7 @@ const Homescreen = (props) => {
 						<NavbarOptions
 							fetchUser={props.fetchUser} 	auth={auth} 
 							setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
-							reloadTodos={refetch} 			setActiveList={loadTodoList}
+							reloadTodos={refetch} 			setActiveRegion={loadRegion}
 						/>
 						
 					</ul>
@@ -268,56 +283,58 @@ const Homescreen = (props) => {
 			<WLMain>
 				
 				{
-					// activeList ? 
+					// activeRegion ? 
 						
-							<div className="container-secondary">
-								
-								<WLayout wLayout = "header">
-									<WLHeader >
-									
-										<WNavbar className ="headernavbarrr" color="colored">
-										        Your Maps     
-										</WNavbar>
-									
-									</WLHeader>
+					<div className="container-secondary">
+						
+						<WLayout wLayout = "header">
+							<WLHeader >
+							
+								<WNavbar className ="headernavbarrr" color="colored">
+										Your Maps     
+								</WNavbar>
+							
+							</WLHeader>
 
 								<WLMain>
 									<WCard wLayout = "content-footer-media" className ="layout3">
 										<WCContent>
 
-											<MainContents
-												addItem={addItem} 				deleteItem={deleteItem}
-												editItem={editItem} 			reorderItem={reorderItem}
-												setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
-												activeList={activeList} 		setActiveList={loadTodoList}
-												canUndo={canUndo} 				canRedo={canRedo}
-												sort={sort}
-											/>
+										<RegionContents
+											addItem={addItem} 				deleteItem={deleteItem}
+											editItem={editItem} 			reorderItem={reorderItem}
+											setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
+											activeRegion={activeRegion} 		setActiveRegion={loadRegion}
+											canUndo={canUndo} 				canRedo={canRedo}
+											sort={sort}
+									/>
 										</WCContent>
-											<WCFooter className = "footer">
-												<button className="newmapbutton">Create New Map</button>
+										<WCFooter className = "footer">
+											<button className="newmapbutton" 
+											onClick={createNewList}
+											>Create New Map</button>
 
-											</WCFooter>
+										</WCFooter>
 
-											<WCMedia className = "picture">
-												<img src="https://previews.123rf.com/images/vasiu/vasiu0802/vasiu080200013/2554416-world-map-red-globe-america-europe-and-africa.jpg?utm_source=shareasale&utm_medium=affiliate&utm_campaign=389818_1195097&sscid=51k5_1pl8t" alt="Globe Image" title
-												="globe image" color = "red" height="200px" width="160px"></img>
-											</WCMedia>
+										<WCMedia className = "picture">
+											<img src="https://previews.123rf.com/images/vasiu/vasiu0802/vasiu080200013/2554416-world-map-red-globe-america-europe-and-africa.jpg?utm_source=shareasale&utm_medium=affiliate&utm_campaign=389818_1195097&sscid=51k5_1pl8t" alt="Globe Image" title
+											="globe image" color = "red" height="200px" width="160px"></img>
+										</WCMedia>
 									</WCard>
 								</WLMain>
 
-								</WLayout>
-							</div>
-						
-						// :
-						// 	<div className="container-secondary"> </div>
-							
-				}
+							</WLayout>
+					</div>
+				
+				// :
+				// 	<div className="container-secondary"> </div>
+					
+		}
 
-			</WLMain>
+	</WLMain>
 
 			{
-				showDelete && (<Delete deleteList={deleteList} activeid={activeList._id} setShowDelete={setShowDelete} />)
+				showDelete && (<Delete deleteList={deleteList} activeid={activeRegion._id} setShowDelete={setShowDelete} />)
 			}
 
 			{
