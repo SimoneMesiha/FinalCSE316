@@ -16,6 +16,10 @@ import { UpdateListField_Transaction,
 	UpdateListItems_Transaction, 
 	ReorderItems_Transaction, 
 	EditItem_Transaction } 				from '../../utils/jsTPS';
+import WCard from 'wt-frontend/build/components/wcard/WCard';
+import WCContent from 'wt-frontend/build/components/wcard/WCContent';
+import WCFooter from 'wt-frontend/build/components/wcard/WCFooter';
+import WCMedia from 'wt-frontend/build/components/wcard/WCMedia';
 
 const Homescreen = (props) => {
 
@@ -35,7 +39,7 @@ const Homescreen = (props) => {
 
 	const auth = props.user === null ? false : true;
 	let todolists 	= [];
-	let SidebarData = [];
+	let SidebarData = []; // the elements
 	const [sortRule, setSortRule] = useState('unsorted'); // 1 is ascending, -1 desc
 	const [activeList, setActiveList] 		= useState({});
 	const [showDelete, toggleShowDelete] 	= useState(false);
@@ -239,7 +243,7 @@ const Homescreen = (props) => {
 	}
 
 	return (
-		<WLayout wLayout="header-lside">
+		<WLayout wLayout="header">
 			<WLHeader>
 				<WNavbar color="colored">
 					<ul>
@@ -260,36 +264,54 @@ const Homescreen = (props) => {
 				</WNavbar>
 			</WLHeader>
 
-			<WLSide side="left">
-				<WSidebar>
-					{
-						activeList ? 
-							<SidebarContents
-								listIDs={SidebarData} 				activeid={activeList._id} auth={auth}
-								handleSetActive={handleSetActive} 	createNewList={createNewList}
-								updateListField={updateListField} 	key={activeList._id}
-							/>
-							:
-							<></>
-					}
-				</WSidebar>
-			</WLSide>
+		
 			<WLMain>
+				
 				{
-					activeList ? 
-					
+					// activeList ? 
+						
 							<div className="container-secondary">
-								<MainContents
-									addItem={addItem} 				deleteItem={deleteItem}
-									editItem={editItem} 			reorderItem={reorderItem}
-									setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
-									activeList={activeList} 		setActiveList={loadTodoList}
-									canUndo={canUndo} 				canRedo={canRedo}
-									sort={sort}
-								/>
+								
+								<WLayout wLayout = "header">
+									<WLHeader >
+									
+										<WNavbar className ="headernavbarrr" color="colored">
+										        Your Maps     
+										</WNavbar>
+									
+									</WLHeader>
+
+								<WLMain>
+									<WCard wLayout = "content-footer-media" className ="layout3">
+										<WCContent>
+
+											<MainContents
+												addItem={addItem} 				deleteItem={deleteItem}
+												editItem={editItem} 			reorderItem={reorderItem}
+												setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
+												activeList={activeList} 		setActiveList={loadTodoList}
+												canUndo={canUndo} 				canRedo={canRedo}
+												sort={sort}
+											/>
+										</WCContent>
+											<WCFooter className = "footer">
+												<button className="newmapbutton">Create New Map</button>
+
+											</WCFooter>
+
+											<WCMedia className = "picture">
+												<img src="https://previews.123rf.com/images/vasiu/vasiu0802/vasiu080200013/2554416-world-map-red-globe-america-europe-and-africa.jpg?utm_source=shareasale&utm_medium=affiliate&utm_campaign=389818_1195097&sscid=51k5_1pl8t" alt="Globe Image" title
+												="globe image" color = "red" height="200px" width="160px"></img>
+											</WCMedia>
+									</WCard>
+								</WLMain>
+
+								</WLayout>
 							</div>
-						:
-							<div className="container-secondary" />
+						
+						// :
+						// 	<div className="container-secondary"> </div>
+							
 				}
 
 			</WLMain>

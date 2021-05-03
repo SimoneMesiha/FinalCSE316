@@ -7,17 +7,55 @@ html {
 }
 
 /* ----------------------------- Top-Level Setup ---------------------------- */
-.container-primary {
-    width: 100%;
-    height: 100%;
-    padding: 0 24px;
-}
+// .container-primary {
+//     width: 100%;  //from 100
+//     height: 100%; // from 100
+//     padding: 0 24px;
+   
+// }
 
 .container-secondary {
     width: 100%;
     height: 100%;
     display: flex;
+    background-color: blueviolet;
+    justify-content: center;
+    color: white;
+    width: 600px;
+    height: 500px;
+    margin: 0 auto;
+    margin-top: 100px;
+    border: solid;
+    border-color: black;
 }
+
+.headernavbarrr{ //"your maps"
+    width: 600px;
+    justify-content: center;
+    //align-items: center;
+}
+
+.layout3{
+    width: 600px;
+    height: 500px;
+}
+.picture{
+    color: black;
+    background-color: brown;
+    
+
+}
+.footer{
+    display: flex;
+    background-color: black;
+    justify-content: center;
+    align-items: center;
+}
+.newmapbutton{
+    
+}
+
+
 
 .wsidebar {
     scrollbar-width: thin;

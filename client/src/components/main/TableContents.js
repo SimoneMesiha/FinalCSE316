@@ -11,24 +11,25 @@ const TableContents = (props) => {
     } 
     
     return (
-        entries !== undefined && entries.length > 0 ? <div className=' table-entries container-primary'>
-            {
-                entries.map((entry, index) => (
-                    <TableEntry
-                        data={entry} key={entry._id} index={index} entryCount={entryCount}
-                        deleteItem={props.deleteItem} reorderItem={props.reorderItem}
-                        editItem={props.editItem}
-                    />
-                ))
-            }
+        // entries !== undefined && entries.length > 0 ? <div className=' table-entries container-primary'>
+        //     {
+        //         entries.map((entry, index) => (
+        //             <TableEntry
+        //                 data={entry} key={entry._id} index={index} entryCount={entryCount}
+        //                 deleteItem={props.deleteItem} reorderItem={props.reorderItem}
+        //                 editItem={props.editItem}
+        //             />
+        //         ))
+        //     }
 
-            </div>
-            : <div className='container-primary' >
-                {
-                    props.activeList._id ? <h2 className="nothing-msg"> Nothing to do!</h2> : <></> 
-                }               
+        //     </div>
+        //     : <div className='container-primary' >
+        //         {
+        //             props.activeList._id ? <h2 className="nothing-msg"> Nothing to do!</h2> : <></> 
+        //         }               
                 
-            </div>
+        //     </div>
+        <></>
     );
 };
 
