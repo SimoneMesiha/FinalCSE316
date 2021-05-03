@@ -137,7 +137,7 @@ const Homescreen = (props) => {
 
 
 	const createNewList = async () => {
-		
+		console.log("maps length before = "+ maps.length)
 		let list = {
 			    _id: '',
 				name: 'dkfasf',

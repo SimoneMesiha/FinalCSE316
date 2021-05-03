@@ -22,7 +22,7 @@ const typeDefs = gql `
 	extend type Mutation {
 		  createmap(regionarray : RegionInput): RegionsArray
 		  addRegion(regionInput: RegionInput!): String
-		  
+		  updateRegionField(_id: String!, field: String!, value: String!):String
 	}
 
 

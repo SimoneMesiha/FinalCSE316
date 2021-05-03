@@ -57,7 +57,18 @@ module.exports = {
 				return myMap;
 			}
 			return myMap;
+		},
+
+
+		updateRegionField: async =()=>{
+			const { field, value, _id } = args;
+			const objectId = new ObjectId(_id);
+			const updated = await RegionArray.updateOne({_id: objectId}, {[field]: value});
+			if(updated) return value;
+			else return "";
 		}
+
+	
 		// ,
 		// /** 
 		//  	@param 	 {object} args - a todolist id and an empty item object
