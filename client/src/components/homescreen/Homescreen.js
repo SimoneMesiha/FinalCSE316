@@ -154,6 +154,7 @@ const Homescreen = (props) => {
 			loadRegion(data.CREATE_MAP);
 		} 
 		console.log("we did it bro")
+		window.location.reload("true")
 	};
 
 
@@ -298,15 +299,11 @@ const Homescreen = (props) => {
 
 								<WLMain>
 									<WCard wLayout = "content-footer-media" className ="layout3">
-										<WCContent>
+										<WCContent className = "mainContent">
 
 										<RegionContents
-											addItem={addItem} 				deleteItem={deleteItem}
-											editItem={editItem} 			reorderItem={reorderItem}
-											setShowDelete={setShowDelete} 	undo={tpsUndo} redo={tpsRedo}
-											activeRegion={activeRegion} 		setActiveRegion={loadRegion}
-											canUndo={canUndo} 				canRedo={canRedo}
-											sort={sort}
+											listIDs = {maps}  auth={auth}
+											
 									/>
 										</WCContent>
 										<WCFooter className = "footer">

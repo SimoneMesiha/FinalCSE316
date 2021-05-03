@@ -1,11 +1,16 @@
 import React            from 'react';
-import SideBarList      from './SideBarList';
+import RegionList      from './RegionList';
 
 const RegionContents =(props)=>{
     return (
-        <></>
-    )
-}
+        <>
+        
+            <RegionList
+                 listIDs = {props.listIDs}
+            />
+        </>
+    );
+};
 
 
 

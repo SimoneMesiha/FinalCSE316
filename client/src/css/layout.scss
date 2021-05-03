@@ -39,6 +39,15 @@ html {
     width: 600px;
     height: 500px;
 }
+
+.mainContent{
+    background-color: #dbbdf9;;
+    overflow: scroll;
+}
+.list-item-active{
+    color: black;
+}
+
 .picture{
     color: black;
     background-color: brown;
@@ -52,7 +61,11 @@ html {
     align-items: center;
 }
 .newmapbutton{
-    
+    height: 47.5px;
+    width: 510px;
+    color: whitesmoke;
+    background-color:brown;
+    font-size: medium;
 }
 
 
