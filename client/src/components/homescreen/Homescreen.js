@@ -1,7 +1,6 @@
 import Logo 							from '../navbar/Logo';
 import Login 							from '../modals/Login';
 import Delete 							from '../modals/Delete';
-import MainContents 					from '../main/MainContents';
 
 import RegionContents                   from '../mainRegion/RegionContents'
 
@@ -111,8 +110,12 @@ const Homescreen = (props) => {
 	const [UpdateTodolistField] 	= useMutation(mutations.UPDATE_TODOLIST_FIELD, mutationOptions);
 	const [DeleteTodoItem] 			= useMutation(mutations.DELETE_ITEM, mutationOptions);
 	const [AddTodoItem] 			= useMutation(mutations.ADD_ITEM, mutationOptions);
-	const [CreateMap] 			= useMutation(mutations.CREATE_MAP);
 	const [DeleteTodolist] 			= useMutation(mutations.DELETE_TODOLIST);
+
+
+	const [CreateMap] 			= useMutation(mutations.CREATE_MAP);
+	const [DeleteMap] 			= useMutation(mutations.DELETE_MAP);
+
 
 
 
@@ -155,6 +158,14 @@ const Homescreen = (props) => {
 		} 
 		console.log("we did it bro")
 		window.location.reload("true")
+	};
+
+
+	const deleteMap = async (_id) => {
+		console.log("wack")
+		DeleteMap({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_REGIONS }] });
+		loadRegion({});
+		console.log("wack");
 	};
 
 
@@ -302,7 +313,7 @@ const Homescreen = (props) => {
 										<WCContent className = "mainContent">
 
 										<RegionContents
-											listIDs = {maps}  auth={auth}
+											listIDs = {maps}  auth={auth} delete ={deleteMap}
 											
 									/>
 										</WCContent>

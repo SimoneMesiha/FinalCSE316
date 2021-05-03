@@ -59,6 +59,16 @@ module.exports = {
 			return myMap;
 		},
 
+		deletemap: async (_, args) => {
+			console.log("bruh")
+			const { _id } = args;
+			const objectId = new ObjectId(_id);
+			const deleted = await RegionArray.deleteOne({_id: objectId});
+			if(deleted) return true;
+			else return false;
+		},
+
+
 
 		updateRegionField: async =()=>{
 			const { field, value, _id } = args;

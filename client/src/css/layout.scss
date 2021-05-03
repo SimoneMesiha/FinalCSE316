@@ -69,6 +69,34 @@ html {
 }
 
 
+//structure of the rows
+ .table-entry{
+     height: 85px;
+//     overflow-y: scroll;
+//     border-bottom: 1px solid;
+//     height: 40px;
+//     position: flex;
+// }
+// .list-text{
+
+ }
+
+// .wrow{
+//     display: grid;
+//     column-gap: 0rem;
+//     width: 100%;
+// }
+
+.table-entry-buttons{
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: whitesmoke;
+    
+}
+
+// }
 
 .wsidebar {
     scrollbar-width: thin;

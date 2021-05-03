@@ -1,5 +1,5 @@
 import React from 'react'
-import {WNavItem, WInput} from 'wt-frontend'
+import {WNavItem, WInput, WCol, WButton, WRow} from 'wt-frontend'
 import {useState} from 'react'
 
 
@@ -16,6 +16,9 @@ const RegionEntry =(props)=>{
 const consolelog =()=>{
     console.log("hello")
 }
+// const deleteEntry =()=>{
+//     props.delete(props._id)
+// }
 
 
     const entryStyle = props._id === props.activeid ? 'list-item-active' : 'list-item ';
@@ -23,24 +26,35 @@ const consolelog =()=>{
 
 
     return(
-        <WNavItem className={entryStyle} onDoubleClick ={consolelog}>
+
+    <WRow className = "table-entry">
+        <WCol size='3'>
+            <WNavItem className={entryStyle} >
+
+                {
+                    editing ?   <WInput className="table-input" inputClass="table-input-class"
+                                
+                                    name='name'  autoFocus={true} defaultValue={props.name} 
+                                />
+                            :   <div className='table-text'>
+                                    {props.name}
+                                </div>
+
+                }
 
             {
-                editing ?   <WInput className="list-item-edit" inputClass="list-item-edit-input"
-                               
-                                name='name'  autoFocus={true} defaultValue={props.name} 
-                            />
-                        :   <div className='list-text'>
-                                {props.name}
-                            </div>
+            <WCol size = "3">
+               <div className="button-group">
+                    <WButton className={ "table-entry-buttons"} wType="texted" onClick={consolelog} >
+                        <i className="material-icons">delete</i>
+                    </WButton>
+               </div>
+            </WCol>
 
             }
-
-
-
-
-
         </WNavItem>
+         </WCol>
+    </WRow>
     )
 
 }

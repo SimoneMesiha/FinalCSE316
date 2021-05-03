@@ -47,7 +47,20 @@ export const CREATE_MAP = gql`
 	}
 `;
 
+export const DELETE_MAP = gql`
+	mutation DeleteMap($_id: String!) {
+		deletemap(_id: $_id)
+	}
+`;
 
+
+
+
+export const DELETE_TODOLIST = gql`
+	mutation DeleteTodolist($_id: String!) {
+		deleteTodolist(_id: $_id)
+	}
+`;
 
 
 
@@ -133,11 +146,6 @@ export const ADD_TODOLIST = gql`
 	}
 `;
 
-export const DELETE_TODOLIST = gql`
-	mutation DeleteTodolist($_id: String!) {
-		deleteTodolist(_id: $_id)
-	}
-`;
 
 export const UPDATE_TODOLIST_FIELD = gql`
 	mutation UpdateTodolistField($_id: String!, $field: String!, $value: String!) {

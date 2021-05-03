@@ -6,7 +6,7 @@ const RegionContents =(props)=>{
         <>
         
             <RegionList
-                 listIDs = {props.listIDs}
+                 listIDs = {props.listIDs} delete={props.delete}
             />
         </>
     );
