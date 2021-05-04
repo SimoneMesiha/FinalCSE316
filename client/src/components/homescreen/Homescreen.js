@@ -63,7 +63,7 @@ const Homescreen = (props) => {
 		//Assign todolists 
 		for(let todo of data.getAllRegions) {
 			maps.push(todo)
-			console.log(maps)
+		//	console.log(maps)
 		}
 		//if a list is selected, shift it to front of todolists
 		// if(activeRegion._id) {
@@ -156,16 +156,20 @@ const Homescreen = (props) => {
 		if(data) {
 			loadRegion(data.CREATE_MAP);
 		} 
-		console.log("we did it bro")
+		
 		window.location.reload("true")
 	};
 
 
 	const deleteMap = async (_id) => {
+		console.log(maps)
+
 		console.log("wack")
 		DeleteMap({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_REGIONS }] });
 		loadRegion({});
-		console.log("wack");
+
+		
+		console.log("so we got to delete map which is lit");
 	};
 
 

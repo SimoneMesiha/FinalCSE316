@@ -16,9 +16,10 @@ const RegionEntry =(props)=>{
 const consolelog =()=>{
     console.log("hello")
 }
-// const deleteEntry =()=>{
-//     props.delete(props._id)
-// }
+const deleteEntry =()=>{
+    console.log(props._id)
+    props.delete(props._id)
+}
 
 
     const entryStyle = props._id === props.activeid ? 'list-item-active' : 'list-item ';
@@ -45,7 +46,7 @@ const consolelog =()=>{
             {
             <WCol size = "3">
                <div className="button-group">
-                    <WButton className={ "table-entry-buttons"} wType="texted" onClick={consolelog} >
+                    <WButton className={ "table-entry-buttons"} wType="texted" onClick={deleteEntry} >
                         <i className="material-icons">delete</i>
                     </WButton>
                </div>

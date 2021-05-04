@@ -60,7 +60,7 @@ module.exports = {
 		},
 
 		deletemap: async (_, args) => {
-			console.log("bruh")
+			console.log("plz work")
 			const { _id } = args;
 			const objectId = new ObjectId(_id);
 			const deleted = await RegionArray.deleteOne({_id: objectId});
@@ -70,7 +70,7 @@ module.exports = {
 
 
 
-		updateRegionField: async =()=>{
+		updateRegionField: async ()=>{
 			const { field, value, _id } = args;
 			const objectId = new ObjectId(_id);
 			const updated = await RegionArray.updateOne({_id: objectId}, {[field]: value});

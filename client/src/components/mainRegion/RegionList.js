@@ -8,7 +8,7 @@ const RegionList = (props) =>{
         {
             props.listIDs && props.listIDs.map(entry=>(
                 <RegionEntry
-                id = {tempId++} name = {entry.name}
+                id = {tempId++} name = {entry.name} delete ={props.delete} _id={entry._id}
 
                 />
             )
