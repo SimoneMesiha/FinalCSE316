@@ -12,6 +12,7 @@ const typeDefs = gql `
         landmark:  [String]!
 		isitmap: Boolean!
 		owner : String
+		parent: String
 	}
 	
 	
@@ -38,6 +39,7 @@ const typeDefs = gql `
 
 	   isitmap: Boolean!
 	   owner : String
+	   parent: String
    }
 `;
 

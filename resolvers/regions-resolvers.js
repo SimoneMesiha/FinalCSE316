@@ -39,7 +39,7 @@ module.exports = {
 		createmap: async(_,args)=>{
 			const { regionarray } = args;
 			const objectId = new ObjectId();
-			const { _id, name, subregion, capital, leader,flag, landmark,isitmap,owner } = regionarray;
+			const { _id, name, subregion, capital, leader,flag, landmark,isitmap,owner,parent } = regionarray;
 			const myMap = new RegionArray({
 				_id: objectId,
 				name: name,
@@ -49,7 +49,8 @@ module.exports = {
 				flag: flag,
 				landmark: landmark,
 				isitmap : isitmap,
-				owner : owner 
+				owner : owner,
+				parent : parent
 			});
 			const updated = await myMap.save();   // .save() the query being sent to MongoDB
 			if(updated) {

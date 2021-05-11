@@ -43,6 +43,7 @@ export const CREATE_MAP = gql`
 			landmark
 			isitmap
 			owner
+			parent
 		}
 	}
 `;

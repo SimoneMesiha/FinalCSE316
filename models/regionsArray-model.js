@@ -36,6 +36,10 @@ const regionArraySchema = new Schema(
 		},
 		owner:{
 			type:String
+		},
+		parent:{
+			type:String,
+			required:true
 		}
 
 	},

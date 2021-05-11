@@ -23,6 +23,7 @@ export const GET_DB_REGIONS = gql`
             landmark
 			isitmap
 			owner
+			parent
 		}
 	}
 `;

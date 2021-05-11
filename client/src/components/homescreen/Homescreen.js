@@ -150,7 +150,8 @@ const Homescreen = (props) => {
 				flag: 'df',
 				landmark: [],
 				isitmap : true,
-				owner : props.user._id
+				owner : props.user._id,
+				parent: "insertParent"
 		}
 		const { data } = await CreateMap({variables: {regionarray:list} , refetchQueries:{query:GET_DB_REGIONS}} );
 		if(data) {
