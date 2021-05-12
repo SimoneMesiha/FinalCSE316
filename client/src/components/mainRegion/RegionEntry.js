@@ -1,7 +1,7 @@
 import React from 'react'
 import {WNavItem, WInput, WCol, WButton, WRow} from 'wt-frontend'
 import {useState} from 'react'
-
+import {Link} from 'react-router-dom'
 
 
 const RegionEntry =(props)=>{
@@ -48,7 +48,7 @@ const deleteEntry =()=>{
                                     name='name'  autoFocus={true} defaultValue={props.name} onBlur={handleSubmit} 
                                 />
                             :   <div className='table-text'>
-                                    {props.name}
+                                    <Link to={`/home/${props._id}`}>{props.name}</Link>
                                 </div>
 
                 }

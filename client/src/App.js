@@ -4,6 +4,8 @@ import { useQuery } 	from '@apollo/client';
 import * as queries 	from './cache/queries';
 import { jsTPS } 		from './utils/jsTPS';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
+
+import ContentsOfRegion from './components/ContentsOfRegion/ContentsOfRegion'
  
 const App = () => {
 	let user = null;
@@ -20,6 +22,9 @@ const App = () => {
 	return(
 		<BrowserRouter>
 			<Switch>
+			 	<Route path = "/home/:id" component={ContentsOfRegion}></Route>
+
+
 				<Redirect exact from="/" to={ {pathname: "/home"} } />
 				<Route 
 					path="/home" 
@@ -29,6 +34,10 @@ const App = () => {
 					} 
 				/>
 				<Route/>
+
+
+
+				
 
 				
 

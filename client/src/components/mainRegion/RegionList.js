@@ -1,5 +1,6 @@
 import React from 'react'
 import RegionEntry from './RegionEntry'
+import {Link} from 'react-router-dom'
 
 const RegionList = (props) =>{
     let tempId=0
@@ -7,6 +8,9 @@ const RegionList = (props) =>{
         <>
         {
             props.listIDs && props.listIDs.map(entry=>(
+
+              
+
                 <RegionEntry
                 id = {tempId++} name = {entry.name} delete ={props.delete} _id={entry._id} nameChange ={props.nameChange}
 

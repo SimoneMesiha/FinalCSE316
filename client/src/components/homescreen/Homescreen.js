@@ -23,6 +23,8 @@ import WCContent from 'wt-frontend/build/components/wcard/WCContent';
 import WCFooter from 'wt-frontend/build/components/wcard/WCFooter';
 import WCMedia from 'wt-frontend/build/components/wcard/WCMedia';
 
+import {Link} from 'react-router-dom'
+
 const Homescreen = (props) => {
 
 	const keyCombination = (e, callback) => {
@@ -359,7 +361,7 @@ const Homescreen = (props) => {
 		}
 
 	</WLMain>
-
+		
 			{
 				showDelete && (<Delete deleteList={deleteList} activeid={activeRegion._id} setShowDelete={setShowDelete} />)
 			}
@@ -367,12 +369,14 @@ const Homescreen = (props) => {
 			{
 				showCreate && (<CreateAccount fetchUser={props.fetchUser} setShowCreate={setShowCreate} />)
 			}
-
+	
 			{
 				showLogin && (<Login fetchUser={props.fetchUser} reloadTodos={refetch}setShowLogin={setShowLogin} />)
 			}
 
 		</WLayout>
+
+		
 	);
 };
 
