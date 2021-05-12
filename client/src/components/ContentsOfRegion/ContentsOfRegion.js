@@ -1,8 +1,18 @@
 import React 			from 'react';
+import RegionEntry from '../mainRegion/RegionEntry'
 
-const ContentsOfRegion = ()=>{
+
+
+const ContentsOfRegion = (props)=>{
+    const {_id,name} = props.location.state
+
+    let consoleProps=()=>{
+        console.log(props.location.state)
+    }
     return(
-        <h1>HELLO</h1>
+        <div onClick={consoleProps}>
+            
+       {name}</div>
     )
 }
 
