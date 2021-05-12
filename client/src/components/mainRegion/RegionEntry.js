@@ -8,10 +8,20 @@ const RegionEntry =(props)=>{
      const [editing, toggleEditing] = useState(false);
      const [preEdit, setPreEdit] = useState(props.name);
      const handleEditing = (e) => {
+         console.log(props.name)
         e.stopPropagation();
         setPreEdit(props.name);
         toggleEditing(!editing);
     };
+
+    const handleSubmit = (e)=>{
+        handleEditing(e);
+        const {name,value}= e.target;
+        console.log(props.changeName);
+        console.log(props.delete);
+
+        props.nameChange(props._id,name,value);
+    }
 
 const consolelog =()=>{
     console.log("hello")
@@ -30,12 +40,12 @@ const deleteEntry =()=>{
 
     <WRow className = "table-entry">
         <WCol size='3'>
-            <WNavItem className={entryStyle} >
+            <WNavItem className={entryStyle} onDoubleClick={handleEditing}>
 
                 {
                     editing ?   <WInput className="table-input" inputClass="table-input-class"
                                 
-                                    name='name'  autoFocus={true} defaultValue={props.name} 
+                                    name='name'  autoFocus={true} defaultValue={props.name} onBlur={handleSubmit} 
                                 />
                             :   <div className='table-text'>
                                     {props.name}

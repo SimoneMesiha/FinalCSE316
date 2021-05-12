@@ -54,6 +54,35 @@ export const DELETE_MAP = gql`
 	}
 `;
 
+export const UPDATE_REGION_FIELD = gql`
+	mutation UpdateRegionField($_id: String!, $field: String!, $value: String!) {
+		updateRegionField(_id: $_id, field: $field, value: $value)
+	}
+`;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -96,11 +125,7 @@ export const UPDATE_ITEM_FIELD = gql`
 	}
 `;
 
-export const UPDATE_REGION_FIELD = gql`
-	mutation UpdateRegionField($_id: String!, $field: String!, $value: String!) {
-		updateRegionField(_id: $_id, field: $field, value: $value)
-	}
-`;
+
 
 
 

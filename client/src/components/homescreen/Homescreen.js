@@ -115,6 +115,7 @@ const Homescreen = (props) => {
 
 	const [CreateMap] 			= useMutation(mutations.CREATE_MAP);
 	const [DeleteMap] 			= useMutation(mutations.DELETE_MAP);
+	const [UpdateRegionField]   =useMutation(mutations.UPDATE_REGION_FIELD, mutationOptions)
 
 
 
@@ -172,6 +173,18 @@ const Homescreen = (props) => {
 		
 		console.log("so we got to delete map which is lit");
 	};
+
+	const updateRegionField = async (_id,field,value)=>{
+		console.log("mmm we get here")
+		await UpdateRegionField({variables:{_id: _id, field: field, value:value}});
+		console.log("but do we get here?");
+
+		//window.location.reload("true")
+	}
+
+
+
+
 
 
 
@@ -319,6 +332,7 @@ const Homescreen = (props) => {
 
 										<RegionContents
 											listIDs = {maps}  auth={auth} delete ={deleteMap}
+											nameChange ={updateRegionField}
 											
 									/>
 										</WCContent>

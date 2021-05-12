@@ -60,6 +60,7 @@ module.exports = {
 			return myMap;
 		},
 
+		//deletes the map.
 		deletemap: async (_, args) => {
 			console.log("plz work")
 			const { _id } = args;
@@ -71,8 +72,10 @@ module.exports = {
 
 
 
-		updateRegionField: async ()=>{
-			const { field, value, _id } = args;
+		updateRegionField: async (_,args)=>{
+			console.log("we get here");
+			const { _id, field, value } = args;
+			console.log("do we get here thoug");
 			const objectId = new ObjectId(_id);
 			const updated = await RegionArray.updateOne({_id: objectId}, {[field]: value});
 			if(updated) return value;

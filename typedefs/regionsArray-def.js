@@ -36,7 +36,6 @@ const typeDefs = gql `
        leader: String!
        flag: String!
        landmark:  [String]
-
 	   isitmap: Boolean!
 	   owner : String
 	   parent: String
