@@ -29,7 +29,7 @@ const ContentsOfRegion = (props)=>{
 							<Logo className='logo' />
 					</ul>
 					<ul>
-					<div>Region here </div>
+					<div>Parent Here </div>
 						
 							{/* WNAVITEM IS ADDED BY ME */}
 						{/* <NavbarOptions
@@ -40,7 +40,7 @@ const ContentsOfRegion = (props)=>{
 					</ul>
                     <ul>
                         <div>
-                            Name here 
+                           {name}
                         </div>
                     </ul>
 
@@ -52,27 +52,42 @@ const ContentsOfRegion = (props)=>{
 
             <WLMain >
                 {
-                    
-                    <div className = "container-details">
-                        <WLayout wLayout="header">
-                            <WLHeader>
-                                <WNavbar className="detailsNavbar" color = "colored">
-                                    
-                                    <ul>1</ul>
-                                    <ul>2</ul>
-                                    <ul>3</ul>
-                                    <ul>4</ul>
-                                    <ul>5</ul>
+                    	<div className="container-details">
+						
+						<WLayout wLayout = "header">
+							<WLHeader >
+							
+								<WNavbar className ="topNavBar" color="colored">
+									
+                                        <ul className="plusButton">
+                                        <WButton className={ "table-entry-buttons"} wType="texted" >
+                                             <i className="material-icons" color={'green'}>add</i>
+                                        </WButton>
+                                        </ul>
+                                    <div className="button-group">
+                                        <ul>
+                                         <WButton className={ "table-entry-buttons"} wType="texted" >
+                                             <i className="material-icons">undo</i>
+                                        </WButton>
+                                        </ul>
 
+                                        <ul>
+                                        <WButton className={ "table-entry-buttons"} wType="texted" >
+                                             <i className="material-icons">redo</i>
+                                        </WButton>
+                                        </ul>
+                                    </div>
 
-
-                                    
-                                </WNavbar>
-                                    
-                            </WLHeader>
+								</WNavbar>
+							
+							</WLHeader>
                         </WLayout>
-                    </div>
-                        
+
+
+
+
+                        </div>
+                   
                     
           
                 }
