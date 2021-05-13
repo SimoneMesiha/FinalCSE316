@@ -49,7 +49,19 @@ const deleteEntry =()=>{
                                     name='name'  autoFocus={true} defaultValue={props.name} onBlur={handleSubmit} 
                                 />
                             :   <div className='table-text'>
-                                    <Link  to={{pathname:'/home/${props._id}', state:{_id:props._id, name:props.name}}}>{props.name}   {/*what print the name*/}
+                                    <Link  to={{pathname:'/home/${props._id}', 
+                                    state:{
+                                         _id:props._id,
+                                         name:props.name,
+                                        //  fetchUser:props.fetchUser
+                                        //   auth:props.auth
+                                        //  setShowCreate:props.setShowCreate,
+                                        //  setShowLogin:props.setShowLogin,
+                                        //  reloadTodos :props.reloadTodos, 
+                                        //  setActiveRegion: props.loadRegion
+
+                                         }
+                                         }}>{props.name}   {/*what print the name*/}
                                     </Link>
                                    
                                 

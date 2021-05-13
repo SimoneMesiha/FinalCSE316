@@ -1,0 +1,42 @@
+@use 'node_modules/wt-frontend/build/global/wolfie' as *;
+@use 'node_modules/wt-frontend/build/global/components';
+
+@use 'node_modules/wt-frontend/build/global/theme' with (
+    $primary-color: #ffc800,
+    $background-color: rgb(64, 69, 78),//#d9d6cc,
+     $navbar-background-color:rgb(0, 0, 0),// #353a44,//rgb(64, 69, 78),
+    $sidebar-background-color: #2b2e36,//#353a44,
+    $text-color: #e9edf0,
+    $modal-background: rgb(64, 69, 78),
+    $modal-section-padding: 24px,
+    $modal-radius: 4px,
+    $modal-border: 1px solid rgb(87, 93, 105),
+    $modal-button-color: rgba(255,255,255, 0.7),
+    $modal-button-hover: #e9edf0,
+    $button-text-color: black,
+    // other variable changes here
+);
+
+
+
+
+.container-details{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    background-color: blueviolet;
+    justify-content: center;
+    color: black;
+    width: 600px;
+    height: 500px;
+    margin: 0 auto;
+    margin-top: 100px;
+    border: solid;
+    border-color: black;
+}
+
+.detailsNavbar{
+     width: 600px;
+    justify-content: center;
+    height: 20px;
+}

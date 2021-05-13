@@ -333,8 +333,12 @@ const Homescreen = (props) => {
 										<WCContent className = "mainContent">
 
 										<RegionContents
-											listIDs = {maps}  auth={auth} delete ={deleteMap}
+											listIDs = {maps}   delete ={deleteMap}
 											nameChange ={updateRegionField}
+
+											fetchUser={props.fetchUser} 	auth={auth} 
+											setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
+											reloadTodos={refetch} 			setActiveRegion={loadRegion}
 											
 									/>
 										</WCContent>

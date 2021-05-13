@@ -14,6 +14,10 @@ const RegionList = (props) =>{
                 <RegionEntry
                 id = {tempId++} name = {entry.name} delete ={props.delete} _id={entry._id} nameChange ={props.nameChange}
 
+                 fetchUser ={props.fetchUser} auth={props.auth}
+                 setShowCreate ={props.setShowCreate} setShowLogin={props.setShowLogin}
+                 reloadTodos ={props.reloadTodos} setActiveRegion = {props.loadRegion}
+
                 />
             )
                 

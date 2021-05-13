@@ -7,6 +7,11 @@ const RegionContents =(props)=>{
         
             <RegionList
                  listIDs = {props.listIDs} delete={props.delete} nameChange ={props.nameChange}
+
+
+                 fetchUser ={props.fetchUser} auth={props.auth}
+                 setShowCreate ={props.setShowCreate} setShowLogin={props.setShowLogin}
+                 reloadTodos ={props.reloadTodos} setActiveRegion = {props.loadRegion}
             />
         </>
     );
