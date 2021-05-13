@@ -8,6 +8,7 @@ import ContentsOfRegion from '../ContentsOfRegion/ContentsOfRegion'
 const RegionEntry =(props)=>{
      const [editing, toggleEditing] = useState(false);
      const [preEdit, setPreEdit] = useState(props.name);
+     
      const handleEditing = (e) => {
          console.log(props.name)
         e.stopPropagation();
@@ -51,8 +52,9 @@ const deleteEntry =()=>{
                             :   <div className='table-text'>
                                     <Link  to={{pathname:'/home/${props._id}', 
                                     state:{
-                                         _id:props._id,
-                                         name:props.name,
+                                        //  _id:props._id,
+                                        //  name:props.name,
+                                         entry:props.entry
                                         //  fetchUser:props.fetchUser
                                         //   auth:props.auth
                                         //  setShowCreate:props.setShowCreate,

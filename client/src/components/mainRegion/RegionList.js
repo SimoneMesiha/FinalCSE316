@@ -7,12 +7,15 @@ const RegionList = (props) =>{
     return(
         <>
         {
-            props.listIDs && props.listIDs.map(entry=>(
+           
+            props.listIDs && props.listIDs.filter(entry=>entry.isitmap===true).map(entry=>(
 
               
 
                 <RegionEntry
-                id = {tempId++} name = {entry.name} delete ={props.delete} _id={entry._id} nameChange ={props.nameChange}
+                id = {tempId++} name = {entry.name} delete ={props.delete} _id={entry._id} nameChange ={props.nameChange} 
+                
+                entry={entry}
 
                  fetchUser ={props.fetchUser} auth={props.auth}
                  setShowCreate ={props.setShowCreate} setShowLogin={props.setShowLogin}
