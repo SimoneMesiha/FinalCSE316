@@ -59,6 +59,38 @@ module.exports = {
 			}
 			return myMap;
 		},
+		addSubregion:async(_,args)=>{
+			const {regionarray,_id} =args;
+			const regionId = new ObjectId(_id)
+			const objectId = new ObjectId();
+			const { _id2, name, subregion, capital, leader,flag, landmark,isitmap,owner,parent } = regionarray;
+			const myMap = new RegionArray({
+				_id: objectId,
+				name: name,
+				subregion: subregion,
+				capital: capital,
+				leader: leader,
+				flag: flag,
+				landmark: landmark,
+				isitmap : isitmap,
+				owner : owner,
+				parent : parent
+			});
+			const updated = await myMap.save();   // .save() the query being sent to MongoDB
+			const addParent = await RegionArray.updateOne({_id:objectId},{parent: _id}) //child adds a parent
+
+			const found = await RegionArray.findOne({_id:regionId})//access to ParentList
+			const newArray = found.subregion.push(objectId) // add the new ID to parent subs
+			const addSubregion = await RegionArray.updateOne({_id:regionId},{subregion:newArray}) // adding subregion to parameters id
+
+
+			
+			if(updated) {
+				console.log(myMap)
+				return myMap;
+			}
+			return myMap;
+		},
 
 		//deletes the map.
 		deletemap: async (_, args) => {

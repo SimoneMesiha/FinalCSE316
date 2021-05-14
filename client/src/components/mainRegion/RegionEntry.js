@@ -8,7 +8,7 @@ import ContentsOfRegion from '../ContentsOfRegion/ContentsOfRegion'
 const RegionEntry =(props)=>{
      const [editing, toggleEditing] = useState(false);
      const [preEdit, setPreEdit] = useState(props.name);
-     
+
      const handleEditing = (e) => {
          console.log(props.name)
         e.stopPropagation();
@@ -54,7 +54,8 @@ const deleteEntry =()=>{
                                     state:{
                                         //  _id:props._id,
                                         //  name:props.name,
-                                         entry:props.entry
+                                         entry:props.entry,
+                                         mapArray: props.listIDs
                                         //  fetchUser:props.fetchUser
                                         //   auth:props.auth
                                         //  setShowCreate:props.setShowCreate,

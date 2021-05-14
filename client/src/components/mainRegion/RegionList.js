@@ -13,7 +13,7 @@ const RegionList = (props) =>{
               
 
                 <RegionEntry
-                id = {tempId++} name = {entry.name} delete ={props.delete} _id={entry._id} nameChange ={props.nameChange} 
+                id = {tempId++} name = {entry.name} delete ={props.delete} _id={entry._id} nameChange ={props.nameChange}  listIDs = {props.listIDs}
                 
                 entry={entry}
 

@@ -160,7 +160,6 @@ const Homescreen = (props) => {
 		if(data) {
 			loadRegion(data.CREATE_MAP);
 		} 
-		
 		window.location.reload("true")
 	};
 

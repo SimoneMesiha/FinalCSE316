@@ -13,18 +13,98 @@ import Logo from '../navbar/Logo'
 import NavbarOptions from '../navbar/NavbarOptions'
 import WMMain from 'wt-frontend/build/components/wmodal/WMMain';
 
+import * as mutations from '../../cache/mutations'
+import { GET_DB_REGIONS } 				from '../../cache/queries';
+import { useMutation, useQuery } 		from '@apollo/client';
+import loadRegion from '../homescreen/Homescreen'
+import reloadRegion from '../homescreen/Homescreen'
+
+
+
 //Entry has eberything. entry.name, entry.subregions.....
 
 
 
 const ContentsOfRegion = (props)=>{
-    const {entry} = props.location.state
+    const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
+	//console.log("the data ")
+
+	if(loading) { console.log(loading, 'loading'); }
+	if(error) { console.log(error, 'error'); }
+	if(data) { 
+		//Assign todolists 
+		for(let todo of data.getAllRegions) {
+			mapArray.push(todo)
+		//	console.log(maps)
+		}
+    }
+
+
+    const mutationOptions = {
+		refetchQueries: [{ query: GET_DB_REGIONS }], 
+		awaitRefetchQueries: true,
+		onCompleted: () => reloadRegion()
+	}
+
+    const[SubReginAdder] = useMutation(mutations.ADD_SUBREGION, mutationOptions)
+
+    const add_subregion = async () => {
+		console.log("maps length before = "+ mapArray.length)
+		let list = {
+			    _id: '',
+				name: 'sub',
+				subregion: [],
+				capital: 'sub',
+				leader: 'sub',
+				flag: 'df',
+				landmark: [],
+				isitmap : false,
+				owner : props.user._id,
+				parent: entry._id
+		}
+		const { data } = await SubReginAdder({variables: {regionarray:list, _id:entry._id} , refetchQueries:{query:GET_DB_REGIONS}} );
+		if(data) {
+			loadRegion(data.CREATE_MAP);
+		} 
+		
+		window.location.reload("true")
+	};
+
+
+
+
+
+
+
+    const {entry, mapArray} = props.location.state
     let consoleProps=()=>{
         console.log(props.location.state)
     }
     let subregionPrint=()=>{
         console.log(entry.subregion)
     }
+    let mapArrayTest=()=>{
+        console.log(mapArray);
+    }
+
+
+
+
+    let mapChildrenReturner=()=>{
+        console.log(entry.subregion)
+        //mapArray[4].leader="Totti";
+        mapArray[4].capital="Quarticciolo";
+
+        // mapArray.shift()
+        // mapArray.shift()
+        // mapArray.shift()
+        // mapArray.shift()
+        for(let i =0;i<mapArray.length;i++){
+            console.log(mapArray[i].capital + " "+ mapArray[i]._id);
+        }
+
+    }
+
 
     let landmarkPrinter =()=>{
         let a=""
@@ -91,7 +171,7 @@ const ContentsOfRegion = (props)=>{
 								<WNavbar className ="topNavBar" color="colored">
 									
                                         <ul className="plusButton">
-                                        <WButton   className={ "table-entry-buttons"} wType="texted" >
+                                        <WButton onClick={console.log("yo mom")}  className={ "table-entry-buttons"} wType="texted" >
                                              <i className="material-icons" color={'green'}>add</i>
                                         </WButton>
                                         </ul>
@@ -192,7 +272,7 @@ const ContentsOfRegion = (props)=>{
 
                                                             }
                                                                                                                                                                      <button className="buttonX"
-                                                                                                                                                                     onClick={landmarkPrinter}
+                                                                                                                                                                     onClick={mapChildrenReturner}
                                                                                                                                                                      >X</button>
 
                                                         </WCol>
