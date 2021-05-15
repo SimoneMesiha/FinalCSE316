@@ -18,6 +18,8 @@ import { GET_DB_REGIONS } 				from '../../cache/queries';
 import { useMutation, useQuery } 		from '@apollo/client';
 import loadRegion from '../homescreen/Homescreen'
 import reloadRegion from '../homescreen/Homescreen'
+import {useHistory} from  'react-router-dom'
+import { UniqueDirectiveNamesRule } from 'graphql';
 
 
 
@@ -26,6 +28,43 @@ import reloadRegion from '../homescreen/Homescreen'
 
 
 const ContentsOfRegion = (props)=>{
+
+    let idk =  () =>{
+    //    console.log(info)
+    //    const a =info.filter(element=>element._id !== entry._id);
+    //    a.shift(entry)
+    //    info = a 
+    //    console.log(a)
+       
+        
+        // console.log(entry._id + "target")
+
+        for(let i=0;i<info.length;i++){
+            // console.log(info[i]._id +" at index "+i)
+        }
+
+        for(let i=0;i<info.length;i++){
+            
+            if(info[i]._id==entry._id){
+                // console.log("found it " + i);
+                return i;
+            }else{
+                return -1
+            }
+        }
+
+
+        // const indexFinder = info.filter(element=> element._id == entry._id);
+        // console.log(indexFinder)
+        // return indexFinder;
+    }
+
+
+
+
+    const {entry, mapArray, refetch:refetchItems, userId} = props.location.state
+    let info =[]
+
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
 	//console.log("the data ")
 
@@ -34,40 +73,63 @@ const ContentsOfRegion = (props)=>{
 	if(data) { 
 		//Assign todolists 
 		for(let todo of data.getAllRegions) {
-			mapArray.push(todo)
-		//	console.log(maps)
+			info.push(todo);
+			// console.log(mapArray);
+            // console.log(entry)
+            console.log(info)
+            // console.log(idk()+ " fsklflkdafjklaf")
+            // console.log(info[idk()])
+            
 		}
     }
-
-
+   
+    const [activeRegion, setActiveRegion] 		= useState({});
     const mutationOptions = {
 		refetchQueries: [{ query: GET_DB_REGIONS }], 
 		awaitRefetchQueries: true,
 		onCompleted: () => reloadRegion()
 	}
-
     const[SubReginAdder] = useMutation(mutations.ADD_SUBREGION, mutationOptions)
+    const [DeleteSubregion] = useMutation(mutations.DELETE_SUBREGION)
 
     const add_subregion = async () => {
-		console.log("maps length before = "+ mapArray.length)
+		// console.log("maps length before = "+ mapArray.length)
+        // console.log(entry._id)
 		let list = {
 			    _id: '',
 				name: 'sub',
 				subregion: [],
 				capital: 'sub',
 				leader: 'sub',
-				flag: 'df',
+				flag: 'sub',
 				landmark: [],
 				isitmap : false,
-				owner : props.user._id,
+				owner : userId._id,
 				parent: entry._id
 		}
-		const { data } = await SubReginAdder({variables: {regionarray:list, _id:entry._id} , refetchQueries:{query:GET_DB_REGIONS}} );
-		if(data) {
-			loadRegion(data.CREATE_MAP);
-		} 
-		
+
+        console.log(list + "fsfasf "+userId._id);
+
+		const { data } =  SubReginAdder({variables: {regionarray:list, id:entry._id} , refetchQueries:[{query:GET_DB_REGIONS}]} );
+		// if(data) {
+		// 	loadRegion(data.CREATE_MAP);
+		// } 
+        // setActiveRegion({info});
+      
 		window.location.reload("true")
+	};
+    const deleteSubregion = async (_id) => {
+        console.log(info);
+        
+
+
+		const {data} =  await DeleteSubregion({ variables: { _id: _id, parentId:entry._id}, refetchQueries: [{ query: GET_DB_REGIONS }] });
+        
+        //refetch();
+        //setTimeout(()=> {window.location.reload("true")},20000)
+        window.location.reload("true")
+        
+
 	};
 
 
@@ -76,7 +138,7 @@ const ContentsOfRegion = (props)=>{
 
 
 
-    const {entry, mapArray} = props.location.state
+    
     let consoleProps=()=>{
         console.log(props.location.state)
     }
@@ -86,26 +148,7 @@ const ContentsOfRegion = (props)=>{
     let mapArrayTest=()=>{
         console.log(mapArray);
     }
-
-
-
-
-    let mapChildrenReturner=()=>{
-        console.log(entry.subregion)
-        //mapArray[4].leader="Totti";
-        mapArray[4].capital="Quarticciolo";
-
-        // mapArray.shift()
-        // mapArray.shift()
-        // mapArray.shift()
-        // mapArray.shift()
-        for(let i =0;i<mapArray.length;i++){
-            console.log(mapArray[i].capital + " "+ mapArray[i]._id);
-        }
-
-    }
-
-
+    
     let landmarkPrinter =()=>{
         let a=""
         for(let i=0;i<landmark.length;i++){
@@ -126,6 +169,12 @@ const ContentsOfRegion = (props)=>{
     const [editingLeader, toggleLeaderEdit] = useState(false);
     const [editingFlag, toggleFlagEdit] = useState(false);
     const [editingLandmark, toggleLandmarkEdit] = useState(false);
+
+    // let indexx= async()=>{
+    //     let indexFinder = info.findIndex(element=>{element===entry});
+    //     return indexFinder
+    // }
+    
 
 
 
@@ -171,7 +220,7 @@ const ContentsOfRegion = (props)=>{
 								<WNavbar className ="topNavBar" color="colored">
 									
                                         <ul className="plusButton">
-                                        <WButton onClick={console.log("yo mom")}  className={ "table-entry-buttons"} wType="texted" >
+                                        <WButton onClick={add_subregion}  className={ "table-entry-buttons"} wType="texted" >
                                              <i className="material-icons" color={'green'}>add</i>
                                         </WButton>
                                         </ul>
@@ -260,20 +309,23 @@ const ContentsOfRegion = (props)=>{
 
                                     </WLHeader>
                                     {/* the above works so now into the body */}
+
+
                                     <WMMain className="setOverFlow">
                                         
                                         
                                             {
-                                                entry.subregion.map(subs=>(
+                                               info[idk()]!=null &&
+                                                info[idk()].subregion.map(subs=>(
                                                     <WRow className="table-entry" >
 
                                                         <WCol size="1">
                                                             {
 
                                                             }
-                                                                                                                                                                     <button className="buttonX"
-                                                                                                                                                                     onClick={mapChildrenReturner}
-                                                                                                                                                                     >X</button>
+                                                                                                                                                                      <WButton onClick={()=>deleteSubregion(subs)}                               className=  {"table-entry-buttons"} wType="texted" >
+                                             <i className="material-icons" color={'green'}>delete</i>
+                                        </WButton>
 
                                                         </WCol>
 
@@ -288,10 +340,7 @@ const ContentsOfRegion = (props)=>{
                                                             
                                                         {
 
-                                                            
-                                                            
-
-                                                            
+                                                    
                                                             editingName || name===''?
                                                             <WInput
                                                                 className='table-input'

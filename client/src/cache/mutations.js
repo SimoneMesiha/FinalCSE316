@@ -48,14 +48,32 @@ export const CREATE_MAP = gql`
 	}
 `;
 export const ADD_SUBREGION = gql`
-	mutation AddSubregion($subregion: RegionInput!, $_id:String!){
-		addSubregion(subregion: $subregion, _id: $_id)
+	mutation AddSubregion($regionarray: RegionInput!, $id: String!){
+		addSubregion(regionarray: $regionarray, id:$id){
+			_id
+			name
+			subregion
+			capital
+			leader
+			flag
+			landmark
+			isitmap
+			owner
+			parent
+		}
 	}
 `;
+
 export const DELETE_MAP = gql`
 	mutation DeleteMap($_id: String!) {
 		deletemap(_id: $_id)
 	}
+`;
+export const DELETE_SUBREGION = gql`
+	mutation DeleteSubregion($_id: String! $parentId: String!){
+		deletesubregion(_id: $_id, parentId:$parentId)
+	}
+
 `;
 
 export const UPDATE_REGION_FIELD = gql`

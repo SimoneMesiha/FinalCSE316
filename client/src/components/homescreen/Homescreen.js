@@ -67,6 +67,7 @@ const Homescreen = (props) => {
 			maps.push(todo)
 		//	console.log(maps)
 		}
+	}
 		//if a list is selected, shift it to front of todolists
 		// if(activeRegion._id) {
 		// 	let selectedListIndex = maps.findIndex(entry => entry._id === activeRegion._id);
@@ -79,7 +80,7 @@ const Homescreen = (props) => {
 		// 		SidebarData.push({_id: todo._id, name: todo.name});
 		// 	}	
 		// }
-	}
+	
 
 
 	
@@ -156,11 +157,14 @@ const Homescreen = (props) => {
 				owner : props.user._id,
 				parent: "insertParent"
 		}
-		const { data } = await CreateMap({variables: {regionarray:list} , refetchQueries:{query:GET_DB_REGIONS}} );
+		const { data } = await CreateMap({variables: {regionarray:list} ,
+			 refetchQueries: [{query:GET_DB_REGIONS}]} );
 		if(data) {
 			loadRegion(data.CREATE_MAP);
 		} 
-		window.location.reload("true")
+		setActiveRegion(maps);
+		
+		//window.location.reload("true")
 	};
 
 
@@ -169,7 +173,7 @@ const Homescreen = (props) => {
 
 		console.log("wack")
 		DeleteMap({ variables: { _id: _id }, refetchQueries: [{ query: GET_DB_REGIONS }] });
-		loadRegion({});
+		
 
 		
 		console.log("so we got to delete map which is lit");
@@ -338,6 +342,8 @@ const Homescreen = (props) => {
 											fetchUser={props.fetchUser} 	auth={auth} 
 											setShowCreate={setShowCreate} 	setShowLogin={setShowLogin}
 											reloadTodos={refetch} 			setActiveRegion={loadRegion}
+											userId ={props.user}
+											
 											
 									/>
 										</WCContent>

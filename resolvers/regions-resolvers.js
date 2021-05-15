@@ -60,10 +60,11 @@ module.exports = {
 			return myMap;
 		},
 		addSubregion:async(_,args)=>{
-			const {regionarray,_id} =args;
-			const regionId = new ObjectId(_id)
+			console.log("a")
+			const {regionarray, id} =args;
 			const objectId = new ObjectId();
-			const { _id2, name, subregion, capital, leader,flag, landmark,isitmap,owner,parent } = regionarray;
+			const parentID = new ObjectId(id)
+			const {_id, name, subregion, capital, leader,flag, landmark,isitmap,owner,parent } = regionarray;
 			const myMap = new RegionArray({
 				_id: objectId,
 				name: name,
@@ -76,20 +77,33 @@ module.exports = {
 				owner : owner,
 				parent : parent
 			});
+			console.log(2)
 			const updated = await myMap.save();   // .save() the query being sent to MongoDB
-			const addParent = await RegionArray.updateOne({_id:objectId},{parent: _id}) //child adds a parent
+			// const addParent = await RegionArray.updateOne({_id:objectId},{parent: regionId}) //child adds a parent
 
-			const found = await RegionArray.findOne({_id:regionId})//access to ParentList
-			const newArray = found.subregion.push(objectId) // add the new ID to parent subs
-			const addSubregion = await RegionArray.updateOne({_id:regionId},{subregion:newArray}) // adding subregion to parameters id
+			console.log(parentID);
 
+			const parentt =  await RegionArray.findOne({_id: parentID}); //get the parent
+			
+			let subregions = parentt.subregion
+			console.log(subregions)
+			subregions.push(objectId)
+			console.log(subregions)
+			 
+
+			const updateParent = RegionArray.updateOne({_id: parentID},{subregion: subregions});
+			console.log("end result " + updateParent);
+
+
+
+			console.log(4)
 
 			
-			if(updated) {
-				console.log(myMap)
-				return myMap;
+			if(updateParent) {
+				console.log(updateParent)
+				return updateParent;
 			}
-			return myMap;
+			return updateParent;
 		},
 
 		//deletes the map.
@@ -98,6 +112,26 @@ module.exports = {
 			const { _id } = args;
 			const objectId = new ObjectId(_id);
 			const deleted = await RegionArray.deleteOne({_id: objectId});
+			if(deleted) return true;
+			else return false;
+		},
+		deletesubregion: async(_,args)=>{
+			const { _id, parentId} = args;
+			const objectId = new ObjectId(_id);
+			const parentIdObj= new ObjectId(parentId)
+			const deleted = await RegionArray.deleteOne({_id: objectId});
+
+			const parentt = await RegionArray.findOne({_id: parentIdObj})
+			console.log(parentt);
+
+			let parentSub = parentt.subregion;
+			console.log("objectId:->" +objectId)
+			let remove_ID = parentSub.filter(element=> element != objectId);
+			console.log(remove_ID+ "            dkjfakjsfajds")
+			let updated = await RegionArray.updateOne({_id:parentIdObj},{subregion:remove_ID});
+			console.log(updated)
+
+
 			if(deleted) return true;
 			else return false;
 		},

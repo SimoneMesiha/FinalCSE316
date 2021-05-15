@@ -12,6 +12,8 @@ const RegionContents =(props)=>{
                  fetchUser ={props.fetchUser} auth={props.auth}
                  setShowCreate ={props.setShowCreate} setShowLogin={props.setShowLogin}
                  reloadTodos ={props.reloadTodos} setActiveRegion = {props.loadRegion}
+                 userId ={props.userId}
+											
             />
         </>
     );

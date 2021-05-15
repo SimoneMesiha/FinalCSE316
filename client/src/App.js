@@ -22,7 +22,13 @@ const App = () => {
 	return(
 		<BrowserRouter>
 			<Switch>
-			 	<Route path = "/home/:id" component={ContentsOfRegion}></Route>
+			 	<Route path = "/home/:id" 
+				  //component={ContentsOfRegion} 
+				  component={(props)=><ContentsOfRegion{...props} key={window.location.pathname} />}
+				 
+				
+
+				 ></Route>
 
 
 				<Redirect exact from="/" to={ {pathname: "/home"} } />
