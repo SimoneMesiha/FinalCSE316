@@ -84,7 +84,6 @@ const deleteEntry =()=>{
                                         
                                          entry:props.entry,
                                          mapArray: props.listIDs,
-                                        //  refetch : props.reloadTodos,
                                         //  fetchUser:props.fetchUser
                                         //   auth:props.auth
                                         //  setShowCreate:props.setShowCreate,

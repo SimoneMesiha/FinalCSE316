@@ -15,11 +15,11 @@ module.exports = {
 		getAllRegions: async (_, __, { req }) => {
 			const _id = new ObjectId(req.userId);
 			if(!_id) { return([])};
-			const region = await RegionArray.find({owner: _id, isitmap: true}).sort({updatedAt: 'descending'});
+			const region = await RegionArray.find({owner: _id}).sort({updatedAt: 'descending'});
 			if(region) {
 				return (region);
 			} 
-			//Added isitmap:true
+			//Added isitmap:true next to wowner // removed
 		},
 		/** 
 		 	@param 	 {object} args - a todolist id
@@ -146,7 +146,21 @@ module.exports = {
 			const updated = await RegionArray.updateOne({_id: objectId}, {[field]: value});
 			if(updated) return value;
 			else return "";
-		}
+		},
+
+		updateSubregionField: async (_,args)=>{
+			console.log("we get here");
+			const { _id, field, value } = args;
+			console.log(_id);
+			console.log(field)
+			console.log(value)
+			const objectId = new ObjectId(_id);
+			const updated = await RegionArray.updateOne({_id: objectId}, {[field]: value});
+			console.log(1)
+			if(updated) return value;
+			else return "";
+		},
+
 
 	
 		// ,

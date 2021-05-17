@@ -13,7 +13,7 @@ const RegionList = (props) =>{
               
 
                 <RegionEntry
-                id = {tempId++} name = {entry.name} delete ={props.delete} _id={entry._id} nameChange ={props.nameChange}  listIDs = {props.listIDs} 
+                id = {tempId++} name = {entry.name} delete ={props.delete} _id={entry._id} nameChange ={props.nameChange}  listIDs = {props.listIDs} key={Math.floor(Math.random*100000000)+1}
                 
                 entry={entry}
 

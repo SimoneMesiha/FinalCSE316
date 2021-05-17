@@ -26,6 +26,7 @@ const typeDefs = gql `
 		  deletesubregion(_id : String! parentId:String!): Boolean
 		  addRegion(regionInput: RegionInput!): String
 		  updateRegionField(_id: String!, field: String!, value: String!):String
+		  updateSubregionField(_id: String!, field: String!, value: String!):String
 		  addSubregion(regionarray: RegionInput, id: String!): RegionsArray
 		  
 	}

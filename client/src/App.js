@@ -24,7 +24,7 @@ const App = () => {
 			<Switch>
 			 	<Route path = "/home/:id" 
 				  //component={ContentsOfRegion} 
-				  component={(props)=><ContentsOfRegion{...props} key={window.location.pathname} />}
+				  component={(props)=><ContentsOfRegion{...props} key={Math.floor(Math.random*100000000)+1} />}
 				 
 				
 

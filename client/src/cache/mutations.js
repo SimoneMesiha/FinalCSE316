@@ -81,6 +81,11 @@ export const UPDATE_REGION_FIELD = gql`
 		updateRegionField(_id: $_id, field: $field, value: $value)
 	}
 `;
+export const UPDATE_SUBREGION_FIELD =gql`
+	mutation UpdateSubregionField($_id: String!, $field: String!, $value: String!){
+		updateSubregionField(_id: $_id, field: $field, value: $value)
+	}
+`;
 
 
 

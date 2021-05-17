@@ -30,21 +30,7 @@ import { UniqueDirectiveNamesRule } from 'graphql';
 const ContentsOfRegion = (props)=>{
 
     let idk =  () =>{
-    //    console.log(info)
-    //    const a =info.filter(element=>element._id !== entry._id);
-    //    a.shift(entry)
-    //    info = a 
-    //    console.log(a)
-       
-        
-        // console.log(entry._id + "target")
-
-        for(let i=0;i<info.length;i++){
-            // console.log(info[i]._id +" at index "+i)
-        }
-
-        for(let i=0;i<info.length;i++){
-            
+        for(let i=0;i<info.length;i++){   
             if(info[i]._id==entry._id){
                 // console.log("found it " + i);
                 return i;
@@ -52,17 +38,9 @@ const ContentsOfRegion = (props)=>{
                 return -1
             }
         }
-
-
-        // const indexFinder = info.filter(element=> element._id == entry._id);
-        // console.log(indexFinder)
-        // return indexFinder;
     }
 
-
-
-
-    const {entry, mapArray, refetch:refetchItems, userId} = props.location.state
+    const {entry, mapArray,  userId} = props.location.state
     let info =[]
 
     const { loading, error, data, refetch } = useQuery(GET_DB_REGIONS);
@@ -76,7 +54,7 @@ const ContentsOfRegion = (props)=>{
 			info.push(todo);
 			// console.log(mapArray);
             // console.log(entry)
-            console.log(info)
+           // console.log(info)
             // console.log(idk()+ " fsklflkdafjklaf")
             // console.log(info[idk()])
             
@@ -89,8 +67,16 @@ const ContentsOfRegion = (props)=>{
 		awaitRefetchQueries: true,
 		onCompleted: () => reloadRegion()
 	}
+    
+    const [sortPos, negatePos]= useState(1)
+
+
+
     const[SubReginAdder] = useMutation(mutations.ADD_SUBREGION, mutationOptions)
     const [DeleteSubregion] = useMutation(mutations.DELETE_SUBREGION)
+    const [UpdateSubRegionField]   =useMutation(mutations.UPDATE_SUBREGION_FIELD, mutationOptions)
+    
+
 
     const add_subregion = async () => {
 		// console.log("maps length before = "+ mapArray.length)
@@ -119,29 +105,35 @@ const ContentsOfRegion = (props)=>{
 		window.location.reload("true")
 	};
     const deleteSubregion = async (_id) => {
+        let a = window.confirm("Are you sure you want to delete this subregion?");
+        if( a== false){
+            return
+        }
         console.log(info);
-        
-
-
-		const {data} =  await DeleteSubregion({ variables: { _id: _id, parentId:entry._id}, refetchQueries: [{ query: GET_DB_REGIONS }] });
-        
-        //refetch();
-        //setTimeout(()=> {window.location.reload("true")},20000)
-        window.location.reload("true")
-        
-
+		const {data} =   DeleteSubregion({ variables: { _id: _id, parentId:entry._id}, refetchQueries: [{ query: GET_DB_REGIONS }] });
+        window.location.reload("true")    
 	};
+    const updateSubValu = async (_id, field, value)=>{
+        const {data} =   UpdateSubRegionField({variables:{_id:_id, field:field,value:value},
+        refetchQueries: [{ query: GET_DB_REGIONS }]
+        });
+        window.location.reload("true")    
 
+    };
 
+ 
 
-
-
+      
+    // let ChangeValue =  (id, value)=>{
+    //     console.log(id);
+    //     console.log(value)
+    //    updateSubValu(id,valuee,e.target.value)
+    //     console.log("eyo")
+        
+    // }
 
 
     
-    let consoleProps=()=>{
-        console.log(props.location.state)
-    }
     let subregionPrint=()=>{
         console.log(entry.subregion)
     }
@@ -157,6 +149,35 @@ const ContentsOfRegion = (props)=>{
         return a;
     }
 
+    let printName = (_id)=>{
+        //console.log(info.subregion + "fasdfasd")
+        //console.log(info.length)
+        //console.log(info)
+        let element = info.find(region=>region._id == _id)
+        //console.log(element);
+        //console.log(element.name);
+        return element.name
+    }
+    let printCapital = (_id)=>{
+        //console.log(info.subregion + "fasdfasd")
+        //console.log(info.length)
+        //console.log(info)
+        let element = info.find(region=>region._id == _id)
+        //console.log(element);
+        //console.log(element.name);
+        return element.capital
+    }
+    let printLeader = (_id)=>{
+        //console.log(info.subregion + "fasdfasd")
+        //console.log(info.length)
+        //console.log(info)
+        let element = info.find(region=>region._id == _id)
+        //console.log(element);
+        //console.log(element.name);
+        return element.leader
+    }
+
+
     const name = entry.name;
     const capital = entry.capital;
     const leader = entry.leader;
@@ -169,6 +190,40 @@ const ContentsOfRegion = (props)=>{
     const [editingLeader, toggleLeaderEdit] = useState(false);
     const [editingFlag, toggleFlagEdit] = useState(false);
     const [editingLandmark, toggleLandmarkEdit] = useState(false);
+
+    let handleName=(e)=>{
+        e.stopPropagation();
+        //toggleNameEdit(!editingName);
+    }
+
+    
+    let handleNameSubmit=(id,e)=>{
+        //handleName(e);
+        console.log(e.target.value + " ay we gucci mate")
+        console.log(id)
+        updateSubValu(id,'name',e.target.value)
+        console.log("ayyyyyyy")
+    }
+
+    // let handleCapital=(e)=>{
+    //     e.stopPropagation();
+    //     toggleCapitalEdit(!editingCapital);
+    // }
+
+    
+    let handlecapitalSubmit=(id,e)=>{
+        //handleCapital(e);
+        console.log(e.target.value + " ay we gucci mate")
+        console.log(id)
+        updateSubValu(id,'capital',e.target.value)
+        console.log("ayyyyyyy")
+        
+    }
+
+    
+   
+
+    
 
     // let indexx= async()=>{
     //     let indexFinder = info.findIndex(element=>{element===entry});
@@ -226,7 +281,9 @@ const ContentsOfRegion = (props)=>{
                                         </ul>
                                     <div className="button-group">
                                         <ul>
-                                         <WButton className={ "table-entry-buttons"} wType="texted" >
+                                         <WButton className={ "table-entry-buttons"} wType="texted" 
+                                         onClick={()=>printName()}
+                                         >
                                              <i className="material-icons">undo</i>
                                         </WButton>
                                         </ul>
@@ -257,7 +314,9 @@ const ContentsOfRegion = (props)=>{
                                         <div className="button-group">
                                             <ul>
                                                 
-                                                <WButton className={ "table-entry-buttons"}wType="texted">
+                                                <WButton className={ "table-entry-buttons"}wType="texted"
+                                                
+                                                >
                                                     <i className ="material-icons">sort</i>
                                                     name
                                                 </WButton>
@@ -331,83 +390,53 @@ const ContentsOfRegion = (props)=>{
 
 
 
-
-
-
-                                                        <WCol size='3' >
-                                                       
-                                                        
-                                                            
+                                                        <WCol size='3'  >
+                                                                                     
                                                         {
-
-                                                    
-                                                            editingName || name===''?
+                                                            // editingName || name ===''?
                                                             <WInput
+                                                                
                                                                 className='table-input'
-                                                                onBlur={()=>toggleNameEdit(!editingName)}
-                                                                autoFocus ={true}
-                                                                defaultValue={subs}
+                                                                //inputClass="table-input-class"
+                                                                onBlur={(e)=>handleNameSubmit(subs,e)}
+                                                                //autoFocus ={true}
+                                                                defaultValue={printName(subs)}
                                                                 type='text'
                                                                 wType='outlined'
                                                                 barAnimation='solid'
-                                                                inputClass="table-input-class"
-
-                                                                    
+                                                                //onDoubleClick={handleName}
+                                                              
+                                                                   
                                                             />
-                                                           
-                                                            
-
-                                                            :
-
-
-                                                                    
-
-
-                                                            <div className="table-text"
-                                                                 onClick={() => toggleNameEdit(!editingName)}
-                                                            >
-                                                                {subs}
-                                
-                                                            </div>
-                                                            
+                                                            //:
+                                                            // <div className="table-text"
+                                                            //       // onClick={toggleNameEdit(!editingName)}
+                                                            //     onDoubleClick={handleName}
+                                                            //    // onClick={console.log(subs)}
+                                                            // >
+                                                            //     {printName(subs)}
+                                                            // </div>
                                                             
                                                         }
                                                     </WCol>
-
-
-
                                                         <WCol size='3' >
-                                                       
-                                                        
-                                                    
                                                         {
-
-                                                            
                                                             editingCapital || capital===''?
                                                             <WInput
                                                                 className='table-input'
-                                                                 onBlur={()=>console.log("a")}
+                                                                 onBlur={(e)=>handlecapitalSubmit(subs,e)}
                                                                 autoFocus ={true}
-                                                                defaultValue={capital}
+                                                                defaultValue={printCapital(subs)}
                                                                 type='text'
                                                                 wType='outlined'
                                                                 barAnimation='solid'
                                                                 inputClass="table-input-class"
                                                             />
-
-
-                                                            
-
                                                             :
-
-
-                                                                    
-
-
                                                             <div className="table-text"
-                                                                 onClick={() => toggleCapitalEdit(!editingCapital)}
+                                                                  onClick={() => toggleCapitalEdit(!editingCapital)}
                                                             >
-                                                                {capital}
+                                                                {printCapital(subs)}
                                 
                                                             </div>
                                                             
@@ -425,7 +454,7 @@ const ContentsOfRegion = (props)=>{
                                                                 className='table-input'
                                                                  onBlur={()=>console.log("a")}
                                                                 autoFocus ={true}
-                                                                defaultValue={leader}
+                                                                defaultValue={printLeader(subs)}
                                                                 type='text'
                                                                 wType='outlined'
                                                                 barAnimation='solid'
@@ -436,7 +465,7 @@ const ContentsOfRegion = (props)=>{
                                                             <div className="table-text"
                                                                  onClick={() => toggleLeaderEdit(!editingLeader)}
                                                             >
-                                                                {leader}
+                                                                {printLeader(subs)}
                                 
                                                             </div>
                                                             
@@ -446,7 +475,7 @@ const ContentsOfRegion = (props)=>{
                                                      <WCol size='2' >
                                                         {
                                                             <div className="table-text">
-                                                                {flag}
+                                                                idkMan
                                                             </div>
                                                     }
                                                     </WCol>
