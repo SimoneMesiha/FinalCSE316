@@ -6,6 +6,7 @@ import { jsTPS } 		from './utils/jsTPS';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 
 import ContentsOfRegion from './components/ContentsOfRegion/ContentsOfRegion'
+import Viewer           from './components/ContentsOfRegion/viewer'
  
 const App = () => {
 	let user = null;
@@ -22,13 +23,24 @@ const App = () => {
 	return(
 		<BrowserRouter>
 			<Switch>
+				<Route 
+					path =  "/view/:id"
+					name = "viewer"
+					////component={viewerr}
+					render={() => 
+							<Viewer tps={transactionStack} fetchUser={refetch} user={user}/>
+						} 
+				
+				/>
+
+
 			 	<Route path = "/home/:id" 
 				  //component={ContentsOfRegion} 
 				  component={(props)=><ContentsOfRegion{...props} key={Math.floor(Math.random*100000000)+1} />}
 				 
 				
 
-				 ></Route>
+				 />
 
 
 				<Redirect exact from="/" to={ {pathname: "/home"} } />
@@ -39,7 +51,7 @@ const App = () => {
 						<Homescreen tps={transactionStack} fetchUser={refetch} user={user} refreshTps={refreshTps}/>
 					} 
 				/>
-				<Route/>
+				
 
 			</Switch>
 		</BrowserRouter>

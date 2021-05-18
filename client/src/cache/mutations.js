@@ -87,6 +87,15 @@ export const UPDATE_SUBREGION_FIELD =gql`
 	}
 `;
 
+// export const SORT = gql`
+// 	mutation SORT($_id: String!, $sortType: String!, $order: Int!){
+// 		sortsubs(_id: $_id, sortType: $sortType, order: $order)
+			
+		
+// 	}
+
+// `;
+
 
 
 

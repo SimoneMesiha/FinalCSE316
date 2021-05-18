@@ -159,7 +159,7 @@ module.exports = {
 			console.log(1)
 			if(updated) return value;
 			else return "";
-		},
+		}
 
 
 	

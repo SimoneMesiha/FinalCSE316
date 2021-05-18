@@ -18,7 +18,7 @@ import { GET_DB_REGIONS } 				from '../../cache/queries';
 import { useMutation, useQuery } 		from '@apollo/client';
 import loadRegion from '../homescreen/Homescreen'
 import reloadRegion from '../homescreen/Homescreen'
-import {useHistory} from  'react-router-dom'
+import {Link, useHistory, useParams} from  'react-router-dom'
 import { UniqueDirectiveNamesRule } from 'graphql';
 
 
@@ -28,6 +28,10 @@ import { UniqueDirectiveNamesRule } from 'graphql';
 
 
 const ContentsOfRegion = (props)=>{
+    
+
+    const history = useHistory()
+    
 
     let idk =  () =>{
         for(let i=0;i<info.length;i++){   
@@ -67,11 +71,6 @@ const ContentsOfRegion = (props)=>{
 		awaitRefetchQueries: true,
 		onCompleted: () => reloadRegion()
 	}
-    
-    const [sortPos, negatePos]= useState(1)
-
-
-
     const[SubReginAdder] = useMutation(mutations.ADD_SUBREGION, mutationOptions)
     const [DeleteSubregion] = useMutation(mutations.DELETE_SUBREGION)
     const [UpdateSubRegionField]   =useMutation(mutations.UPDATE_SUBREGION_FIELD, mutationOptions)
@@ -105,7 +104,7 @@ const ContentsOfRegion = (props)=>{
 		window.location.reload("true")
 	};
     const deleteSubregion = async (_id) => {
-        let a = window.confirm("Are you sure you want to delete this subregion?");
+        let a = window.confirm("Are you sure you want to delete this??????? ");
         if( a== false){
             return
         }
@@ -486,9 +485,9 @@ const ContentsOfRegion = (props)=>{
         
                                                         {
 
-                                                            <div className="table-text"
+                                                            <div className="table-text" onClick={()=>history.push("/view/"+subs)}>
                                                                 
-                                                            >
+                                                            
                                                                 {landmark+"..."}
                                 
                                                             </div>
