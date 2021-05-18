@@ -53,15 +53,48 @@ const Viewer=(props)=>{
     //const history = useHistory();
     //const {id}= useParams();
     console.log(z)
-    console.log(z[0].name)
+   // console.log(z[0].name)
+
+          const mutationOptions = {
+		refetchQueries: [{ query: GET_DB_REGIONS }], 
+		awaitRefetchQueries: true,
+		onCompleted: () => reloadRegion()
+	}
+        const[deleteLand] = useMutation(mutations.DELETE_LANDMARK, mutationOptions)
+        const[addLand] = useMutation(mutations.ADD_LANDMARK, mutationOptions)
+
+        const deletelandmark = async (_id,name) => {
+       		const {data} =   deleteLand({ variables: { _id: _id, name:name},
+                refetchQueries: [{ query: GET_DB_REGIONS }] });
+
+        window.location.reload("true")    
+	};
+
+    const addmark = async (_id, name)=>{
+        console.log(1)
+        const {data} =   addLand({ variables: { _id: _id, name:name},
+                refetchQueries: [{ query: GET_DB_REGIONS }] });
+        console.log(2)
+        window.location.reload("true") 
+    }
+
+
     return(
        <div>
            <div className="rightbox">
                <ul>
                   {z[0].landmark.map(element=>{
                       return <li>
-                          {element}
+                            <li>
+                          <button onClick={()=>deletelandmark(id,element)} >X     
+                              
+                                
+                        </button>
+
+                              {element} </li>
+                          
                       </li>
+                     
                   })}
                </ul>    
            </div>
@@ -78,6 +111,14 @@ const Viewer=(props)=>{
 
            </div>
 
+           <button className="addButtonnnn" >
+                ADD
+           </button>
+
+            <input className ="inputtttttttt" defaultValue = "enter name bro"  onBlur={(e)=>addmark(id,e.target.value)}
+            >
+              
+            </input>
 
 
        </div>

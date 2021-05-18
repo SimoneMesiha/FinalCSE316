@@ -28,7 +28,9 @@ const typeDefs = gql `
 		  updateRegionField(_id: String!, field: String!, value: String!):String
 		  updateSubregionField(_id: String!, field: String!, value: String!):String
 		  addSubregion(regionarray: RegionInput, id: String!): RegionsArray
-		  
+		  deletelandmark(_id:String!, name:String!):String	
+		  addlandmark(_id:String!, name:String!):String		  
+	  
 	}
 
 

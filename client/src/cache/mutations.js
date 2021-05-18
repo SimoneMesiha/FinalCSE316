@@ -87,14 +87,18 @@ export const UPDATE_SUBREGION_FIELD =gql`
 	}
 `;
 
-// export const SORT = gql`
-// 	mutation SORT($_id: String!, $sortType: String!, $order: Int!){
-// 		sortsubs(_id: $_id, sortType: $sortType, order: $order)
-			
-		
-// 	}
+export const DELETE_LANDMARK = gql`
+	mutation DeleteLandMark($_id:String!, $name:String!){
+		deletelandmark(_id:$_id, name:$name)
+	}
+`;
 
-// `;
+export const ADD_LANDMARK = gql`
+	mutation AddLandMark($_id:String!, $name:String!){
+		addlandmark(_id:$_id, name:$name)
+	}
+`;
+
 
 
 

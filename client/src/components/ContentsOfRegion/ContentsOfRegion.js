@@ -219,6 +219,15 @@ const ContentsOfRegion = (props)=>{
         
     }
 
+    let handleleaderSubmit=(id,e)=>{
+        //handleCapital(e);
+        console.log(e.target.value + " ay we gucci mate")
+        console.log(id)
+        updateSubValu(id,'leader',e.target.value)
+        console.log("ayyyyyyy")
+        
+    }
+
     
    
 
@@ -281,14 +290,16 @@ const ContentsOfRegion = (props)=>{
                                     <div className="button-group">
                                         <ul>
                                          <WButton className={ "table-entry-buttons"} wType="texted" 
-                                         onClick={()=>printName()}
+                                         onClick={()=>printName()} style={{pointerEvents : "none",color:"gray"}}
                                          >
-                                             <i className="material-icons">undo</i>
+                                             <i className="material-icons" >undo</i>
                                         </WButton>
                                         </ul>
 
                                         <ul>
-                                        <WButton className={ "table-entry-buttons"} wType="texted" >
+                                        <WButton className={ "table-entry-buttons"} wType="texted"
+                                        style={{pointerEvents : "none",color:"gray"}}
+                                        >
                                              <i className="material-icons">redo</i>
                                         </WButton>
                                         </ul>
@@ -314,7 +325,7 @@ const ContentsOfRegion = (props)=>{
                                             <ul>
                                                 
                                                 <WButton className={ "table-entry-buttons"}wType="texted"
-                                                
+                                                style={{pointerEvents : "none",color:"gray"}}
                                                 >
                                                     <i className ="material-icons">sort</i>
                                                     name
@@ -325,7 +336,10 @@ const ContentsOfRegion = (props)=>{
                                          <div className="button-group">
                                             <ul>
                                                 
-                                                <WButton className={ "table-entry-buttons"}wType="texted">
+                                                <WButton className={ "table-entry-buttons"}wType="texted"
+                                                style={{pointerEvents : "none",color:"gray"}}
+                                                >
+
                                                     <i className ="material-icons">sort</i>
                                                     capital
                                                 </WButton>
@@ -335,7 +349,9 @@ const ContentsOfRegion = (props)=>{
                                         <div className="button-group">
                                             <ul>
                                                 
-                                                <WButton className={ "table-entry-buttons"}wType="texted">
+                                                <WButton className={ "table-entry-buttons"}wType="texted"
+                                                style={{pointerEvents : "none",color:"gray"}}
+                                                >
                                                     <i className ="material-icons">sort</i>
                                                     leader
                                                 </WButton>
@@ -345,7 +361,9 @@ const ContentsOfRegion = (props)=>{
                                          <div className="button-group">
                                             <ul>
                                                 
-                                                <WButton className={ "table-entry-buttons"}wType="texted">
+                                                <WButton className={ "table-entry-buttons"}wType="texted"
+                                                style={{pointerEvents : "none",color:"gray"}}
+                                                >
                                                     <i className ="material-icons">sort</i>
                                                     flag
                                                 </WButton>
@@ -355,7 +373,9 @@ const ContentsOfRegion = (props)=>{
                                         <div className="button-group">
                                             <ul>
                                                 
-                                                <WButton className={ "table-entry-buttons"}wType="texted">
+                                                <WButton className={ "table-entry-buttons"}wType="texted"
+                                                style={{pointerEvents : "none",color:"gray"}}
+                                                >
                                                     <i className ="material-icons">sort</i>
                                                     landmark
                                                 </WButton>
@@ -420,24 +440,24 @@ const ContentsOfRegion = (props)=>{
                                                     </WCol>
                                                         <WCol size='3' >
                                                         {
-                                                            editingCapital || capital===''?
+                                                            // editingCapital || capital===''?
                                                             <WInput
                                                                 className='table-input'
-                                                                 onBlur={(e)=>handlecapitalSubmit(subs,e)}
-                                                                autoFocus ={true}
+                                                                onBlur={(e)=>handlecapitalSubmit(subs,e)}
+                                                                //autoFocus ={true}
                                                                 defaultValue={printCapital(subs)}
                                                                 type='text'
                                                                 wType='outlined'
                                                                 barAnimation='solid'
                                                                 inputClass="table-input-class"
                                                             />
-                                                            :
-                                                            <div className="table-text"
-                                                                  onClick={() => toggleCapitalEdit(!editingCapital)}
-                                                            >
-                                                                {printCapital(subs)}
+                                                            // :
+                                                            // <div className="table-text"
+                                                            //       onClick={() => toggleCapitalEdit(!editingCapital)}
+                                                            // >
+                                                            //     {printCapital(subs)}
                                 
-                                                            </div>
+                                                            // </div>
                                                             
                                                         }
                                                     </WCol>
@@ -448,11 +468,11 @@ const ContentsOfRegion = (props)=>{
                                                         {
 
                                                             
-                                                            editingLeader || leader===''?
+                                                            // editingLeader || leader===''?
                                                             <WInput
                                                                 className='table-input'
-                                                                 onBlur={()=>console.log("a")}
-                                                                autoFocus ={true}
+                                                                 onBlur={(e)=>handleleaderSubmit(subs,e)}
+                                                                //autoFocus ={true}
                                                                 defaultValue={printLeader(subs)}
                                                                 type='text'
                                                                 wType='outlined'
@@ -460,13 +480,13 @@ const ContentsOfRegion = (props)=>{
                                                                 inputClass="table-input-class"
                                                             />                                                            
 
-                                                            :
-                                                            <div className="table-text"
-                                                                 onClick={() => toggleLeaderEdit(!editingLeader)}
-                                                            >
-                                                                {printLeader(subs)}
+                                                            // :
+                                                            // <div className="table-text"
+                                                            //      onClick={() => toggleLeaderEdit(!editingLeader)}
+                                                            // >
+                                                            //     {printLeader(subs)}
                                 
-                                                            </div>
+                                                            // </div>
                                                             
                                                         }
                                                     </WCol>

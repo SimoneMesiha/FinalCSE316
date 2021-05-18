@@ -159,7 +159,39 @@ module.exports = {
 			console.log(1)
 			if(updated) return value;
 			else return "";
+		},
+		deletelandmark: async (_,args)=>{
+			const {_id, name} =args
+			console.log(_id)
+			console.log(name)
+
+			const objectId = new ObjectId(_id)
+			const updated = await RegionArray.findOne({_id:objectId})
+			let landmarks = updated.landmark
+			landmarks = landmarks.filter(landmark=>landmark!=name)
+			console.log(landmarks)
+			const update = await RegionArray.updateOne({_id: objectId}, {landmark: landmarks});
+			
+			return "";
+		},
+
+		addlandmark: async (_,args)=>{
+			const {_id, name} =args
+			console.log("the value is" +name)
+
+			const objectId = new ObjectId(_id)
+			const updated = await RegionArray.findOne({_id:objectId})
+			let landmarks = updated.landmark
+			console.log("(1) "+ landmarks)
+			landmarks.push(name)
+			console.log("(2) "+ landmarks)
+			console.log(landmarks)
+	
+			const update = await RegionArray.updateOne({_id: objectId}, {landmark: landmarks});
+			return "";
 		}
+
+
 
 
 	
